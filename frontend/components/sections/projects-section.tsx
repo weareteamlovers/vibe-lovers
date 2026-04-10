@@ -7,12 +7,23 @@ import { ProjectItem } from '@/lib/types';
 import { SectionShell } from '@/components/layout/section-shell';
 import { AnimatedHeading } from '@/components/ui/animated-heading';
 import { formatDate } from '@/lib/utils';
+import Image from 'next/image';
 
 export function ProjectsSection({ items }: { items: ProjectItem[] }) {
   const prefersReducedMotion = useReducedMotion();
 
   return (
-    <SectionShell id="projects">
+    <SectionShell id="exhibition" className="relative overflow-hidden pt-10 md:pt-16">
+      <div className="absolute inset-0 -z-10">
+        <Image
+          src="/media/images/thir.jpg"
+          alt="Exhibition background"
+          fill
+          className="object-cover opacity-85"
+        />
+        <div className="absolute inset-0 bg-black/15" />
+      </div>
+
       <AnimatedHeading
         eyebrow="GitHub Projects"
         title="코드도 하나의 전시물처럼 보이도록 정리한 프로젝트 아카이브"

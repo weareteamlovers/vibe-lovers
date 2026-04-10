@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import { SectionShell } from '@/components/layout/section-shell';
 import { AnimatedHeading } from '@/components/ui/animated-heading';
 import { TrackItem } from '@/lib/types';
@@ -5,7 +6,18 @@ import { AudioPlayer } from '@/components/audio/audio-player';
 
 export function AlbumPreviewSection({ tracks }: { tracks: TrackItem[] }) {
   return (
-    <SectionShell id="album">
+    <SectionShell id="exhibition" className="relative overflow-hidden pt-10 md:pt-16">
+      <div className="absolute inset-0 -z-10">
+        <Image
+          src="/media/images/lambs.jpg"
+          alt="Exhibition background"
+          fill
+          className="object-cover opacity-100"
+        />
+        <div className="absolute inset-0 bg-black/25" />
+      </div>
+
+      
       <AnimatedHeading
         eyebrow="Album Preview"
         title="팀사랑꾼들 정규 1집 맛보기 공간"

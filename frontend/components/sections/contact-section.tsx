@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowUpRight } from 'lucide-react';
 import { contactLinks } from '@/content/site';
@@ -6,7 +7,17 @@ import { AnimatedHeading } from '@/components/ui/animated-heading';
 
 export function ContactSection() {
   return (
-    <SectionShell id="contact" className="pb-28">
+    
+    <SectionShell id="exhibition" className="relative overflow-hidden pt-10 md:pt-16">
+      <div className="absolute inset-0 -z-10">
+        <Image
+          src="/media/images/201.jpg"
+          alt="Exhibition background"
+          fill
+          className="object-cover opacity-100"
+        />
+        <div className="absolute inset-0 bg-black/25" />
+      </div>
       <AnimatedHeading
         eyebrow="Contact"
         title="작업, 공연, 기술 협업, 글과 기록을 이어주는 외부 채널"

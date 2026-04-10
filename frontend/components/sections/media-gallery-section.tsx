@@ -10,7 +10,17 @@ export function MediaGallerySection({ items }: { items: MediaItem[] }) {
   const prefersReducedMotion = useReducedMotion();
 
   return (
-    <SectionShell id="exhibition" className="pt-10 md:pt-16">
+    <SectionShell id="exhibition" className="relative overflow-hidden pt-10 md:pt-16">
+      <div className="absolute inset-0 -z-10">
+        <Image
+          src="/media/images/fruit.jpg"
+          alt="Exhibition background"
+          fill
+          className="object-cover opacity-100"
+        />
+        <div className="absolute inset-0 bg-black/0" />
+      </div>
+
       <AnimatedHeading
         eyebrow="Exhibition"
         title="빛과 소리와 장면을 한 장씩 넘기듯 감상하는 전시형 공간"
