@@ -59,9 +59,9 @@ export function LetterSection() {
 
       <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
         <AnimatedHeading
-          eyebrow="Letter Room"
-          title="익명으로도, 이름을 적어서도 팀사랑꾼들에게 편지를 남길 수 있습니다"
-          description="공개 페이지에서는 작성만 가능하며, 수신된 편지는 관리자 인박스에서만 읽을 수 있습니다. 기본 레이트 리미팅과 스팸 방지용 허니팟도 포함했습니다."
+          eyebrow="사랑꾼들의 편지함"
+          title="이름 혹은 익명으로 팀사랑꾼들에게 편지를 남길 수 있습니다"
+          description="여기에서는 작성만 가능하며, 편지 목록과 내용은 오직 영우만 읽을 수 있습니다."
         />
 
         <form onSubmit={handleSubmit} className="editorial-frame rounded-[32px] p-5 md:p-8">

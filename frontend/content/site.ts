@@ -2,7 +2,7 @@ import { MediaItem, ProjectItem, TrackItem } from '@/lib/types';
 
 export const siteIntro = {
   title: '팀사랑꾼들',
-  subtitle: '팀사랑꾼들은 싱어송라이터이자 AI Engineer 입니다.',
+  subtitle: '팀사랑꾼들은 한국의 락 밴드이자 AI Engineering Group 입니다.',
   marquee:
     '팀사랑꾼들은 여러분을 사랑합니다 teamlovers 팀사랑꾼들은 여러분을 사랑합니다 teamlovers'
 };
