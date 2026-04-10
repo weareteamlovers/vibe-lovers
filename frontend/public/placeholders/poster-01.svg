@@ -1,0 +1,10 @@
+<svg width="1200" height="1600" viewBox="0 0 1200 1600" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="1600" fill="#0D0D0D"/>
+  <rect x="60" y="60" width="1080" height="1480" rx="40" stroke="#F3EFE6" stroke-opacity="0.14"/>
+  <circle cx="260" cy="260" r="160" fill="#F3EFE6" fill-opacity="0.08"/>
+  <circle cx="980" cy="420" r="210" fill="#F3EFE6" fill-opacity="0.05"/>
+  <rect x="160" y="840" width="880" height="2" fill="#F3EFE6" fill-opacity="0.22"/>
+  <text x="160" y="980" fill="#F3EFE6" fill-opacity="0.92" font-size="110" font-family="Arial, Helvetica, sans-serif" letter-spacing="-4">TEAMLOVERS</text>
+  <text x="160" y="1095" fill="#F3EFE6" fill-opacity="0.52" font-size="36" font-family="Arial, Helvetica, sans-serif">original editorial placeholder / gallery mood / sound and code</text>
+  <text x="160" y="1310" fill="#F3EFE6" fill-opacity="0.26" font-size="28" font-family="Arial, Helvetica, sans-serif">replace with your own photography, posters, artworks, and stills</text>
+</svg>
