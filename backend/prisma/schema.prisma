@@ -1,0 +1,80 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum MediaType {
+  image
+  video
+  poster
+}
+
+model AdminUser {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model Letter {
+  id         String   @id @default(cuid())
+  senderName String?
+  title      String?
+  body       String
+  isAnonymous Boolean @default(false)
+  isRead     Boolean  @default(false)
+  ipHash     String?
+  userAgent  String?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+model MediaItem {
+  id        String    @id @default(cuid())
+  title     String
+  type      MediaType
+  src       String
+  poster    String?
+  alt       String?
+  caption   String?
+  width     Int?
+  height    Int?
+  order     Int       @default(0)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+model Track {
+  id              String   @id @default(cuid())
+  title           String
+  artist          String
+  durationSeconds Int
+  audioUrl        String
+  coverUrl        String?
+  order           Int      @default(0)
+  isPublished     Boolean  @default(true)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+model CachedGithubRepo {
+  id              String   @id @default(cuid())
+  repoId          String   @unique
+  name            String
+  description     String?
+  htmlUrl         String
+  homepage        String?
+  language        String?
+  topics          String[]
+  stargazersCount Int      @default(0)
+  updatedAtGitHub DateTime
+  payload         Json?
+  fetchedAt       DateTime @default(now())
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
