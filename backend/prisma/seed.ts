@@ -23,7 +23,7 @@ async function main() {
       {
         title: 'Neon editorial still',
         type: 'image',
-        src: '/placeholders/poster-01.svg',
+        src: '/media/images/201.jpg',
         alt: 'Abstract poster placeholder',
         caption: '빛, 잔향, 편집적 리듬',
         width: 900,
@@ -33,8 +33,8 @@ async function main() {
       {
         title: 'Studio atmosphere reel',
         type: 'video',
-        src: 'https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4',
-        poster: '/placeholders/poster-02.svg',
+        src: '/media/images/team.jpg',
+        poster: '/media/images/team.jpg',
         alt: 'Studio atmosphere placeholder video',
         caption: '전시형 영상 프레임',
         width: 1280,
@@ -44,7 +44,7 @@ async function main() {
       {
         title: 'Gallery wall poster',
         type: 'image',
-        src: '/placeholders/poster-03.svg',
+        src: '/media/images/thir.jpg',
         alt: 'Gallery poster placeholder',
         caption: '포스터 월의 밀도',
         width: 1200,
@@ -54,7 +54,7 @@ async function main() {
       {
         title: 'Muted magazine sheet',
         type: 'image',
-        src: '/placeholders/poster-04.svg',
+        src: '/media/images/lambs.jpg',
         alt: 'Muted magazine placeholder',
         caption: '잡지 같은 여백과 질감',
         width: 1000,
@@ -64,8 +64,8 @@ async function main() {
       {
         title: 'Night moving texture',
         type: 'video',
-        src: 'https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4',
-        poster: '/placeholders/poster-05.svg',
+        src: '/media/images/thing.jpg',
+        poster: '/media/images/thing.jpg',
         alt: 'Moving texture placeholder video',
         caption: '잔잔한 움직임과 깊이',
         width: 1280,
@@ -75,7 +75,7 @@ async function main() {
       {
         title: 'Sound archive print',
         type: 'image',
-        src: '/placeholders/poster-06.svg',
+        src: '/media/images/teen.jpg',
         alt: 'Sound archive poster placeholder',
         caption: '음악과 공학의 포스터 아카이브',
         width: 900,
@@ -88,29 +88,29 @@ async function main() {
   await prisma.track.createMany({
     data: [
       {
-        title: '새벽의 아카이브',
+        title: '시무룩한 마을',
         artist: '팀사랑꾼들',
         durationSeconds: 356,
         audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3',
-        coverUrl: '/covers/cover-01.svg',
+        coverUrl: '/media/images/201.jpg',
         order: 1,
         isPublished: true
       },
       {
-        title: '연약한 전시',
+        title: '영화를 들려주는 라디오',
         artist: '팀사랑꾼들',
         durationSeconds: 289,
         audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3',
-        coverUrl: '/covers/cover-02.svg',
+        coverUrl: '/media/images/holl.jpg',
         order: 2,
         isPublished: true
       },
       {
-        title: '신호와 밤',
+        title: '우리집 사랑 노래',
         artist: '팀사랑꾼들',
         durationSeconds: 314,
         audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3',
-        coverUrl: '/covers/cover-03.svg',
+        coverUrl: '/media/images/thing.jpg',
         order: 3,
         isPublished: true
       }
