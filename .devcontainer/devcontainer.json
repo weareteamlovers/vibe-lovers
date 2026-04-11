@@ -1,0 +1,11 @@
+{
+  "forwardPorts": [3000, 4000],
+  "portsAttributes": {
+    "3000": {
+      "visibility": "public"
+    },
+    "4000": {
+      "visibility": "public"
+    }
+  }
+}

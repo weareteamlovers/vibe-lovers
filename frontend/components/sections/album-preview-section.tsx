@@ -22,7 +22,8 @@ export function AlbumPreviewSection({ tracks }: { tracks: TrackItem[] }) {
         eyebrow="Album Preview"
         title="팀사랑꾼들 정규 1집 demo"
         description="팀사랑꾼들은 10곡 이상의 정규 1집을 목표로 하고 있습니다. 아직 2곡 정도밖에 전체적인 코드 구성을 완성하지 못했고 
-                      이마저도 장비가 없는 상황이라 보컬은 이어폰 마이크로 녹음했으며 데모의 데모 수준이지만 앞으로 한 곡 한 곡 쌓여가는 팀사랑꾼들의 첫 앨범을 함께 응원해주세요!"
+                      이마저도 데모의 데모 수준이며 장비가 없는 상황이라 보컬은 이어폰 마이크로 녹음했지만 
+                       앞으로 한 곡 한 곡 쌓여가는 팀사랑꾼들의 첫 앨범을 함께 응원해주세요!"
       />
       <div className="mt-14">
         <AudioPlayer tracks={tracks} />
