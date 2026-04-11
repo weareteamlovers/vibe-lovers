@@ -58,9 +58,9 @@ model Track {
   coverUrl        String?
   order           Int      @default(0)
   isPublished     Boolean  @default(true)
+  lyrics          String?
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
-  lyrics          String?
 }
 
 model CachedGithubRepo {

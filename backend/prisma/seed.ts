@@ -32,8 +32,8 @@ async function main() {
       },
       {
         title: '',
-        type: 'video',
-        src: '/media/images/201.jpg',
+        type: 'image',
+        src: '/media/images/holl.jpg',
         poster: '/media/images/holl.jpg',
         alt: 'Studio atmosphere placeholder video',
         caption: '',
@@ -63,7 +63,7 @@ async function main() {
       },
       {
         title: '',
-        type: 'video',
+        type: 'image',
         src: '/media/images/thir.jpg',
         poster: '/media/images/thir.jpg',
         alt: 'Moving texture placeholder video',
@@ -93,7 +93,7 @@ async function main() {
         artist: '팀사랑꾼들',
         durationSeconds: 244,
         audioUrl: '/audio/시무룩한 마을.mp3',
-        coverUrl: '/media/images/201.jpg',
+        coverUrl: '/covers/cover-demo.jpg',
         order: 1,
         isPublished: true,
         lyrics: `상처를 껴안은 시무룩한 마을에
@@ -125,7 +125,10 @@ async function main() {
         
         
         내 마음에 다정함의 풋내음이 났으면 해
-        이 마을에 다정함의 풋내음이 났으면 해`
+        이 마을에 다정함의 풋내음이 났으면 해
+        
+        
+        작사: 나영우`
       },
       {
         id: 'track-2',
@@ -133,7 +136,7 @@ async function main() {
         artist: '팀사랑꾼들',
         durationSeconds: 268,
         audioUrl: '/audio/영화를 들려주는 라디오.mp3',
-        coverUrl: '/media/images/holl.jpg',
+        coverUrl: '/covers/cover-demo.jpg',
         order: 2,
         isPublished: true,
         lyrics: `봄이 올 적에 한 소년이 있었죠
@@ -152,7 +155,10 @@ async function main() {
         
         
         고 마 워 요
-         (고 마 워 요)`
+         (고 마 워 요)
+         
+         
+        작사: 나영우`
       },
       {
         id: 'track-3',
@@ -160,7 +166,7 @@ async function main() {
         artist: '팀사랑꾼들',
         durationSeconds: 160,
         audioUrl: '/audio/우리집 사랑 노래.mp3',
-        coverUrl: '/media/images/team.jpg',
+        coverUrl: '/covers/cover-demo.jpg',
         order: 3,
         isPublished: true,
         lyrics: `여름에 여름 노래를 듣는 것보다
@@ -174,7 +180,7 @@ async function main() {
         국제적 사랑 노래가 되지 못해도
         국내를 대표할 노래가 아니어도
         우리가 아끼는 우리집 사랑 노래
-        이 노래 이노래를 영영 사랑해주면
+        이 노래 이 노래를 영영 사랑해주면
         좋겠네
         
         
@@ -190,7 +196,10 @@ async function main() {
         
         홀로 걸어가는 세상이라지만 우리가
         우리가 살아가는 세상이라고 믿을래
-        믿을래 믿을래 믿을래 믿을래`
+        믿을래 믿을래 믿을래 믿을래
+        
+        
+        작사: 나영우`
       }
     ]
   });
