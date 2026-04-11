@@ -25,9 +25,9 @@ export function ProjectsSection({ items }: { items: ProjectItem[] }) {
       </div>
 
       <AnimatedHeading
-        eyebrow="GitHub Projects"
-        title="코드도 하나의 전시물처럼 보이도록 정리한 프로젝트 아카이브"
-        description="백엔드 API에서 저장소를 불러오고, 화면에서는 단순 카드가 아니라 전시 캡션과 정보 패널처럼 재구성합니다."
+        eyebrow="사랑꾼들의 작업실"
+        title="we are teamlovers !"
+        description="팀사랑꾼들이 AI 엔지니어로서 작업중인 프로젝트들입니다."
       />
 
       <div className="mt-14 grid grid-cols-1 gap-5 md:grid-cols-6 auto-rows-[minmax(220px,auto)]">

@@ -60,6 +60,7 @@ model Track {
   isPublished     Boolean  @default(true)
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
+  lyrics          String?
 }
 
 model CachedGithubRepo {

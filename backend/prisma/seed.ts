@@ -21,63 +21,63 @@ async function main() {
   await prisma.mediaItem.createMany({
     data: [
       {
-        title: 'Neon editorial still',
+        title: '',
         type: 'image',
-        src: '/media/images/201.jpg',
+        src: '/media/images/team.jpg',
         alt: 'Abstract poster placeholder',
-        caption: '빛, 잔향, 편집적 리듬',
+        caption: '',
         width: 900,
         height: 1200,
         order: 1
       },
       {
-        title: 'Studio atmosphere reel',
+        title: '',
         type: 'video',
-        src: '/media/images/team.jpg',
-        poster: '/media/images/team.jpg',
+        src: '/media/images/201.jpg',
+        poster: '/media/images/holl.jpg',
         alt: 'Studio atmosphere placeholder video',
-        caption: '전시형 영상 프레임',
+        caption: '',
         width: 1280,
         height: 720,
         order: 2
       },
       {
-        title: 'Gallery wall poster',
+        title: '',
         type: 'image',
-        src: '/media/images/thir.jpg',
+        src: '/media/images/thing.jpg',
         alt: 'Gallery poster placeholder',
-        caption: '포스터 월의 밀도',
+        caption: '',
         width: 1200,
         height: 1500,
         order: 3
       },
       {
-        title: 'Muted magazine sheet',
+        title: '',
         type: 'image',
-        src: '/media/images/lambs.jpg',
+        src: '/media/images/201.jpg',
         alt: 'Muted magazine placeholder',
-        caption: '잡지 같은 여백과 질감',
+        caption: '',
         width: 1000,
         height: 1300,
         order: 4
       },
       {
-        title: 'Night moving texture',
+        title: '',
         type: 'video',
-        src: '/media/images/thing.jpg',
-        poster: '/media/images/thing.jpg',
+        src: '/media/images/thir.jpg',
+        poster: '/media/images/thir.jpg',
         alt: 'Moving texture placeholder video',
-        caption: '잔잔한 움직임과 깊이',
+        caption: '',
         width: 1280,
         height: 720,
         order: 5
       },
       {
-        title: 'Sound archive print',
+        title: '',
         type: 'image',
         src: '/media/images/teen.jpg',
         alt: 'Sound archive poster placeholder',
-        caption: '음악과 공학의 포스터 아카이브',
+        caption: '',
         width: 900,
         height: 1200,
         order: 6
@@ -88,31 +88,105 @@ async function main() {
   await prisma.track.createMany({
     data: [
       {
+        id: 'track-1',
         title: '시무룩한 마을',
         artist: '팀사랑꾼들',
-        durationSeconds: 356,
-        audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3',
+        durationSeconds: 244,
+        audioUrl: '/audio/시무룩한 마을.mp3',
         coverUrl: '/media/images/201.jpg',
         order: 1,
-        isPublished: true
+        isPublished: true,
+        lyrics: `상처를 껴안은 시무룩한 마을에
+        한가지 규칙을 정하기로 했어요
+        다정함으로 살아가는 사람은
+        외로울 때 귀여운 친구가 생기기로
+        
+        
+        네가 처음으로 사귀었던 친구가
+        누군지 기억이 희미해질 때에도
+        미워하거나 용서할 수 있을 때
+        이왕이면 다정한 마음을 건네기로
+        
+        
+        우리가 편지에 적었던 사랑의 힘이
+        이제는 유효하지 않는 마을이어도
+        
+        미지근한 애틋함이 지낼거고
+        사무치는 그리움도 가끔 들러
+        전부 다정함으로 웃을거야
+        
+        
+        사랑이 시곗바늘을 뜨겁게 녹여도
+        우리는 영원할 수 없는 마을이지만
+        
+        미지근한 애틋함이 지낼거고
+        사무치는 그리움도 가끔 들러
+        전부 다정함으로 웃을거야
+        
+        
+        내 마음에 다정함의 풋내음이 났으면 해
+        이 마을에 다정함의 풋내음이 났으면 해`
       },
       {
+        id: 'track-2',
         title: '영화를 들려주는 라디오',
         artist: '팀사랑꾼들',
-        durationSeconds: 289,
-        audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3',
+        durationSeconds: 268,
+        audioUrl: '/audio/영화를 들려주는 라디오.mp3',
         coverUrl: '/media/images/holl.jpg',
         order: 2,
-        isPublished: true
+        isPublished: true,
+        lyrics: `봄이 올 적에 한 소년이 있었죠
+        그 소년은 벤치에 앉아 그녀와
+        이어폰을 한 쪽씩 나눠끼고 있었어요
+        그러다가 조심스레 볼륨을 조금 낮추고
+        우리 만나볼래요? 라고 했어요
+        
+        
+        그녀는 곧장 고갤 끄덕이며
+        말했어요 "응 좋아요."
+        우리는 검정치마의 할리우드를 들으며
+        손을 꼬옥 잡고 산책을 마저 했어요
+        그렇게 우리 사랑 시작됐죠
+        꿈만 같았던 나날들 정말 행복했어요`
       },
       {
+        id: 'track-3',
         title: '우리집 사랑 노래',
         artist: '팀사랑꾼들',
-        durationSeconds: 314,
-        audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3',
-        coverUrl: '/media/images/thing.jpg',
+        durationSeconds: 160,
+        audioUrl: '/audio/우리집 사랑 노래.mp3',
+        coverUrl: '/media/images/team.jpg',
         order: 3,
-        isPublished: true
+        isPublished: true,
+        lyrics: `여름에 여름 노래를 듣는 것보다
+        겨울에 다가올 여름을 상상하며
+        그 노랠 듣는 걸 좋아하는 우리는
+        우리는 사계절을 전부 사랑하는 걸
+        어떡해
+        어떡해
+        
+        
+        국제적 사랑 노래가 되지 못해도
+        국내를 대표할 노래가 아니어도
+        우리가 아끼는 우리집 사랑 노래
+        이 노래 이노래를 영영 사랑해주면
+        좋겠네
+        
+        
+        나는 너랑 우리라는 
+        단어만 쓸 수 있으면
+        충분하니 내 곁에 함께해줘
+        
+        
+        나는 너랑 우리라는 
+        단어만 쓸 수 있으면
+        충분하니 내 곁에 함께해줘
+        
+        
+        홀로 걸어가는 세상이라지만 우리가
+        우리가 살아가는 세상이라고 믿을래
+        믿을래 믿을래 믿을래 믿을래`
       }
     ]
   });

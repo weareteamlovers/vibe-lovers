@@ -13,18 +13,18 @@ export function MediaGallerySection({ items }: { items: MediaItem[] }) {
     <SectionShell id="exhibition" className="relative overflow-hidden pt-10 md:pt-16">
       <div className="absolute inset-0 -z-10">
         <Image
-          src="/media/images/fruit.jpg"
+          src="/media/images/team.jpg"
           alt="Exhibition background"
           fill
           className="object-cover opacity-100"
         />
-        <div className="absolute inset-0 bg-black/0" />
+        <div className="absolute inset-0 bg-black/15" />
       </div>
 
       <AnimatedHeading
-        eyebrow="Exhibition"
-        title="빛과 소리와 장면을 한 장씩 넘기듯 감상하는 전시형 공간"
-        description="사진, 포스터, 짧은 영상이 섞여 흐르는 갤러리입니다. 레이아웃은 일부러 비대칭으로 설계해 잡지와 전시장 사이의 리듬을 만들었습니다."
+        eyebrow=""
+        title="팀사랑꾼들이 사랑하는 앨범들"
+        description=""
       />
 
       <div className="mt-14 columns-1 gap-5 md:columns-2 xl:columns-3 [&>*:not(:first-child)]:mt-5">

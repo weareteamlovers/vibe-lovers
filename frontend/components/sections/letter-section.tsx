@@ -91,7 +91,7 @@ export function LetterSection() {
             <textarea
               value={form.body}
               onChange={(event) => setForm((prev) => ({ ...prev, body: event.target.value }))}
-              placeholder="당신의 마음과 이야기를 적어 주세요."
+              placeholder="어떤 글이든 좋아요. 팀사랑꾼들은 글자를 쓰고 건네는 데에 큰 용기가 필요하단걸 알고 있어요. 수수한 한마디가 군생활중인 영우에게 큰 힘이 됩니다."
               rows={8}
               required
               className="w-full rounded-[26px] border border-line bg-white/[0.03] px-4 py-4 text-sm leading-relaxed text-paper placeholder:text-paper/25 focus:border-paper/35 focus:outline-none"

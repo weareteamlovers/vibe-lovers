@@ -19,9 +19,9 @@ export function ContactSection() {
         <div className="absolute inset-0 bg-black/25" />
       </div>
       <AnimatedHeading
-        eyebrow="Contact"
-        title="작업, 공연, 기술 협업, 글과 기록을 이어주는 외부 채널"
-        description="모든 링크는 새 탭에서 열리며, 전시형 톤을 유지하도록 리스트 대신 에디토리얼 패널로 배치했습니다."
+        eyebrow="사랑꾼들의 연락처"
+        title="나는 너랑 우리라는 단어만 쓸 수 있으면 충분하니 내 곁에 함께해줘"
+        description="팀사랑꾼들이 운영하는 채널들입니다."
       />
 
       <div className="mt-14 grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-5">

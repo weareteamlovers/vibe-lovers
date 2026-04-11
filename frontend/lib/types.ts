@@ -33,6 +33,7 @@ export interface TrackItem {
   audioUrl: string;
   coverUrl?: string | null;
   order: number;
+  lyrics?: string;
 }
 
 export interface LetterPayload {

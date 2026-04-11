@@ -8,11 +8,11 @@ export const siteIntro = {
 };
 
 export const contactLinks = [
-  { label: 'GitHub', href: 'https://github.com/weareteamlovers' },
-  { label: 'Instagram', href: 'https://www.instagram.com/weareteamlovers' },
-  { label: 'Naver Blog', href: 'https://m.blog.naver.com/teamlovers' },
-  { label: 'YouTube', href: 'https://www.youtube.com/@weareteamlovers' },
-  { label: 'Velog', href: 'https://velog.io/@teamlovers' }
+  { label: '인스타그램', href: 'https://www.instagram.com/weareteamlovers' },
+  { label: '유튜브', href: 'https://www.youtube.com/@weareteamlovers' },
+  { label: '네이버 블로그', href: 'https://m.blog.naver.com/teamlovers' },
+  { label: '개발 블로그', href: 'https://velog.io/@teamlovers' },
+  { label: 'GitHub', href: 'https://github.com/weareteamlovers' }
 ];
 
 export const fallbackMedia: MediaItem[] = [
