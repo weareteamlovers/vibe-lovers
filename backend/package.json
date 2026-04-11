@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "build": "nest build",
+    "build": "npx nest build",
     "start": "node dist/main.js",
     "start:dev": "nest start --watch",
     "start:prod": "node dist/main.js",
@@ -32,7 +32,7 @@
     "rxjs": "^7.8.1"
   },
   "devDependencies": {
-    "@nestjs/cli": "^10.4.8",
+    "@nestjs/cli": "^10.4.9",
     "@nestjs/schematics": "^10.1.4",
     "@nestjs/testing": "^10.4.15",
     "@types/bcrypt": "^5.0.2",
