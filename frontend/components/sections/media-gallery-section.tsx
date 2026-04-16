@@ -67,8 +67,7 @@ export function MediaGallerySection({ items }: { items: MediaItem[] }) {
             </div>
             <div className="relative flex items-end justify-between gap-4 px-2 pb-2 pt-4">
               <div>
-                <p className="text-[11px] uppercase tracking-[0.28em] text-paper/40">{item.type}</p>
-                <h3 className="mt-2 text-lg font-medium text-paper">{item.title}</h3>
+                <h3 className="text-lg font-medium text-paper">{item.title}</h3>
               </div>
               {item.caption ? <p className="max-w-[14rem] text-right text-xs leading-relaxed text-paper/50">{item.caption}</p> : null}
             </div>
