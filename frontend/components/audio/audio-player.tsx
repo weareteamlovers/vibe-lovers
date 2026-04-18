@@ -8,7 +8,7 @@ import { TrackItem } from '@/lib/types';
 import { cn, formatDuration } from '@/lib/utils';
 
 const LYRICS_FONT_STACK =
-  "'SF Pro Display', 'SF Pro KR', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Pretendard', 'Malgun Gothic', sans-serif";
+  "'SF Pro Text', 'SF Pro Display', 'SF Pro KR', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Pretendard', 'Malgun Gothic', sans-serif";
 
 export function AudioPlayer({ tracks }: { tracks: TrackItem[] }) {
   const [activeTrackId, setActiveTrackId] = useState<string | null>(tracks[0]?.id ?? null);
@@ -182,7 +182,7 @@ export function AudioPlayer({ tracks }: { tracks: TrackItem[] }) {
 
             <button
               type="button"
-              onClick={togglePlay}
+              onClick={() => void togglePlay()}
               className="inline-flex items-center gap-3 rounded-full border border-line px-5 py-3 text-sm uppercase tracking-[0.28em] text-paper transition hover:bg-white/5"
               data-cursor="interactive"
             >
@@ -245,7 +245,7 @@ export function AudioPlayer({ tracks }: { tracks: TrackItem[] }) {
         <div className="mb-5 border-b border-line pb-4">
           <p className="text-sm uppercase tracking-[0.25em] text-paper/45">Lyrics</p>
           <h4
-            className="mt-3 text-xl font-medium text-paper md:text-2xl"
+            className="mt-3 text-xl font-semibold tracking-tight text-paper md:text-2xl"
             style={{ fontFamily: LYRICS_FONT_STACK }}
           >
             {activeTrack.title}
@@ -257,7 +257,7 @@ export function AudioPlayer({ tracks }: { tracks: TrackItem[] }) {
 
         <div ref={lyricsContainerRef} className="max-h-[460px] overflow-y-auto pr-2">
           <div
-            className="whitespace-pre-line text-[1.05rem] leading-[2.1] text-paper/82 md:text-[1.2rem] md:leading-[2.2]"
+            className="whitespace-pre-line text-[1.08rem] font-medium leading-[2.0] tracking-[-0.01em] text-paper/90 md:text-[1.24rem] md:leading-[2.08]"
             style={{ fontFamily: LYRICS_FONT_STACK }}
           >
             {activeTrack.lyrics?.trim()
