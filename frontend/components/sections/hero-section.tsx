@@ -11,7 +11,7 @@ export function HeroSection() {
     <section className="relative flex min-h-screen flex-col justify-between overflow-hidden px-5 pb-4 pt-10 md:px-8 lg:px-12">
       <div className="absolute inset-0">
         <Image
-          src="/media/images/teen.jpg"
+          src="/media/images/home.jpg"
           alt="..."
           fill
           priority

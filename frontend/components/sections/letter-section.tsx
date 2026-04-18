@@ -50,7 +50,7 @@ export function LetterSection() {
     <SectionShell id="exhibition" className="relative overflow-hidden pt-10 md:pt-16">
       <div className="absolute inset-0 -z-10">
         <Image
-          src="/media/images/thing.jpg"
+          src="/media/images/curtain.jpg"
           alt="Exhibition background"
           fill
           className="object-cover opacity-100"

@@ -9,7 +9,7 @@ export function AlbumPreviewSection({ tracks }: { tracks: TrackItem[] }) {
     <SectionShell id="exhibition" className="relative overflow-hidden pt-10 md:pt-16">
       <div className="absolute inset-0 -z-10">
         <Image
-          src="/media/images/lambs.jpg"
+          src="/media/images/albumback.jpg"
            alt=""
            fill
            sizes="100vw"
