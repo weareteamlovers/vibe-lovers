@@ -11,7 +11,7 @@ import { useEffect, useState } from 'react';
 import { useMounted } from '@/hooks/use-mounted';
 
 const CURSOR_SRC = '/cursor/custom-cursor.png';
-const CURSOR_SIZE = 40;
+const CURSOR_SIZE = 70;
 const HOTSPOT_X = CURSOR_SIZE / 2;
 const HOTSPOT_Y = CURSOR_SIZE / 2;
 const DEFAULT_SCALE = 1;
