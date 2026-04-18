@@ -74,7 +74,7 @@ export function MediaGallerySection({ items }: { items: MediaItem[] }) {
     >
       <div className="absolute inset-0 -z-10">
         <Image
-          src="/media/images/paper.jpg"
+          src="/media/images/textile.jpg"
           alt="Exhibition background"
           fill
           sizes="100vw"
