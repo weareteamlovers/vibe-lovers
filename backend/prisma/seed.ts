@@ -81,7 +81,7 @@ async function main() {
     {
       title: '',
       type: MediaType.image,
-      src: '/media/images/thing.jpg',
+      src: '/media/images/curtain.jpg',
       alt: 'Gallery poster placeholder',
       caption: '',
       width: 1200,
