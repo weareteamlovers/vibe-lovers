@@ -11,7 +11,7 @@ export function ContactSection() {
     <SectionShell id="exhibition" className="relative overflow-hidden pt-10 md:pt-16">
       <div className="absolute inset-0 -z-10">
         <Image
-          src="/media/images/conback.jpg"
+          src="/media/images/201.jpg"
           alt="Exhibition background"
           fill
           sizes="100vw"
