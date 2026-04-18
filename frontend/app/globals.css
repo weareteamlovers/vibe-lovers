@@ -24,6 +24,21 @@ body {
   color: #f3efe6;
 }
 
+@media (min-width: 768px) and (hover: hover) and (pointer: fine) {
+  html.cursor-custom-enabled,
+  html.cursor-custom-enabled body,
+  html.cursor-custom-enabled * {
+    cursor: none !important;
+  }
+
+  html.cursor-custom-enabled
+    input:not([type='checkbox']):not([type='radio']):not([type='range']):not([type='button']):not([type='submit']):not([type='reset']),
+  html.cursor-custom-enabled textarea,
+  html.cursor-custom-enabled [contenteditable='true'] {
+    cursor: text !important;
+  }
+}
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;
@@ -38,9 +53,9 @@ body {
     inset: 0;
     pointer-events: none;
     background-image:
-      linear-gradient(rgba(255,255,255,0.02), rgba(255,255,255,0.01)),
-      radial-gradient(circle at 20% 20%, rgba(255,255,255,0.04), transparent 35%),
-      radial-gradient(circle at 80% 0%, rgba(255,255,255,0.03), transparent 35%);
+      linear-gradient(rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01)),
+      radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.04), transparent 35%),
+      radial-gradient(circle at 80% 0%, rgba(255, 255, 255, 0.03), transparent 35%);
     mix-blend-mode: screen;
   }
 
