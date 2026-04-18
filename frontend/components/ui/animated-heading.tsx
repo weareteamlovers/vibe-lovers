@@ -1,6 +1,7 @@
 'use client';
 
 import { motion, useReducedMotion } from 'framer-motion';
+
 import { staggerContainer, revealUp } from '@/lib/motion';
 import { cn } from '@/lib/utils';
 
@@ -11,6 +12,12 @@ interface AnimatedHeadingProps {
   align?: 'left' | 'center';
   className?: string;
 }
+
+const titleClassName =
+  'max-w-5xl break-keep text-3xl font-semibold leading-[1.08] tracking-tight text-paper sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl';
+
+const descriptionClassName =
+  'max-w-2xl break-keep text-sm leading-relaxed text-paper/65 md:text-base';
 
 export function AnimatedHeading({
   eyebrow,
@@ -25,11 +32,15 @@ export function AnimatedHeading({
   if (prefersReducedMotion) {
     return (
       <div className={cn('flex flex-col gap-4', alignment, className)}>
-        {eyebrow ? <p className="text-xs uppercase tracking-[0.35em] text-paper/50">{eyebrow}</p> : null}
-        <h2 className="max-w-5xl text-4xl font-semibold leading-none tracking-tight text-paper md:text-6xl">
-          {title}
-        </h2>
-        {description ? <p className="max-w-2xl text-sm text-paper/65 md:text-base">{description}</p> : null}
+        {eyebrow ? (
+          <p className="break-keep text-xs uppercase tracking-[0.35em] text-paper/50">
+            {eyebrow}
+          </p>
+        ) : null}
+
+        <h2 className={titleClassName}>{title}</h2>
+
+        {description ? <p className={descriptionClassName}>{description}</p> : null}
       </div>
     );
   }
@@ -43,18 +54,20 @@ export function AnimatedHeading({
       viewport={{ once: true, margin: '-15% 0px' }}
     >
       {eyebrow ? (
-        <motion.p className="text-xs uppercase tracking-[0.35em] text-paper/50" variants={revealUp}>
+        <motion.p
+          className="break-keep text-xs uppercase tracking-[0.35em] text-paper/50"
+          variants={revealUp}
+        >
           {eyebrow}
         </motion.p>
       ) : null}
-      <motion.h2
-        className="max-w-5xl text-4xl font-semibold leading-none tracking-tight text-paper md:text-6xl lg:text-7xl"
-        variants={revealUp}
-      >
+
+      <motion.h2 className={titleClassName} variants={revealUp}>
         {title}
       </motion.h2>
+
       {description ? (
-        <motion.p className="max-w-2xl text-sm text-paper/65 md:text-base" variants={revealUp}>
+        <motion.p className={descriptionClassName} variants={revealUp}>
           {description}
         </motion.p>
       ) : null}
