@@ -3,32 +3,22 @@
 import Image from 'next/image';
 import { Pause, Play } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
+
 import { TrackItem } from '@/lib/types';
 import { cn, formatDuration } from '@/lib/utils';
+
+const LYRICS_FONT_STACK =
+  "'SF Pro Display', 'SF Pro KR', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Pretendard', 'Malgun Gothic', sans-serif";
 
 export function AudioPlayer({ tracks }: { tracks: TrackItem[] }) {
   const [activeTrackId, setActiveTrackId] = useState<string | null>(tracks[0]?.id ?? null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [progress, setProgress] = useState(0);
-  const [shouldAutoplayOnTrackChange, setShouldAutoplayOnTrackChange] = useState(false);
 
   const audioRef = useRef<HTMLAudioElement | null>(null);
-  const loadedTrackIdRef = useRef<string | null>(null);
+  const lyricsContainerRef = useRef<HTMLDivElement | null>(null);
 
-  const activeTrack = tracks.find((track) => track.id === activeTrackId) ?? tracks[0];
-
-  const ensureAudioLoaded = () => {
-    const audio = audioRef.current;
-    if (!audio || !activeTrack) return null;
-
-    if (loadedTrackIdRef.current !== activeTrack.id) {
-      audio.src = activeTrack.audioUrl;
-      audio.load();
-      loadedTrackIdRef.current = activeTrack.id;
-    }
-
-    return audio;
-  };
+  const activeTrack = tracks.find((track) => track.id === activeTrackId) ?? tracks[0] ?? null;
 
   useEffect(() => {
     const audio = audioRef.current;
@@ -42,14 +32,27 @@ export function AudioPlayer({ tracks }: { tracks: TrackItem[] }) {
     const handleEnded = () => {
       setIsPlaying(false);
       setProgress(0);
+      audio.currentTime = 0;
+    };
+
+    const handlePlay = () => {
+      setIsPlaying(true);
+    };
+
+    const handlePause = () => {
+      setIsPlaying(false);
     };
 
     audio.addEventListener('timeupdate', updateProgress);
     audio.addEventListener('ended', handleEnded);
+    audio.addEventListener('play', handlePlay);
+    audio.addEventListener('pause', handlePause);
 
     return () => {
       audio.removeEventListener('timeupdate', updateProgress);
       audio.removeEventListener('ended', handleEnded);
+      audio.removeEventListener('play', handlePlay);
+      audio.removeEventListener('pause', handlePause);
     };
   }, []);
 
@@ -57,53 +60,88 @@ export function AudioPlayer({ tracks }: { tracks: TrackItem[] }) {
     const audio = audioRef.current;
     if (!audio || !activeTrack) return;
 
-    audio.pause();
-    setIsPlaying(false);
+    if (audio.dataset.trackId === activeTrack.id) return;
+
+    audio.src = activeTrack.audioUrl;
+    audio.load();
+    audio.dataset.trackId = activeTrack.id;
     setProgress(0);
-    audio.currentTime = 0;
+  }, [activeTrack]);
 
-    if (loadedTrackIdRef.current !== activeTrack.id) {
-      audio.removeAttribute('src');
-      audio.load();
-      loadedTrackIdRef.current = null;
-    }
+  useEffect(() => {
+    const container = lyricsContainerRef.current;
+    if (!container) return;
 
-    if (shouldAutoplayOnTrackChange) {
-      const nextAudio = ensureAudioLoaded();
-      if (!nextAudio) return;
+    const frame = window.requestAnimationFrame(() => {
+      container.scrollTo({
+        top: 0,
+        behavior: 'auto'
+      });
+    });
 
-      nextAudio
-        .play()
-        .then(() => {
-          setIsPlaying(true);
-        })
-        .catch(() => {
-          setIsPlaying(false);
-        });
+    return () => window.cancelAnimationFrame(frame);
+  }, [activeTrackId]);
 
-      setShouldAutoplayOnTrackChange(false);
-    }
-  }, [activeTrackId, activeTrack, shouldAutoplayOnTrackChange]);
+  const handleSelectTrack = async (track: TrackItem) => {
+    const audio = audioRef.current;
 
-  const togglePlay = async () => {
-    const audio = ensureAudioLoaded();
-    if (!audio) return;
+    setActiveTrackId(track.id);
+    setProgress(0);
 
-    if (audio.paused) {
-      try {
-        await audio.play();
-        setIsPlaying(true);
-      } catch {
-        setIsPlaying(false);
-      }
+    if (!audio) {
+      setIsPlaying(true);
       return;
     }
 
-    audio.pause();
-    setIsPlaying(false);
+    const isDifferentTrack = audio.dataset.trackId !== track.id;
+
+    if (isDifferentTrack) {
+      audio.pause();
+      audio.src = track.audioUrl;
+      audio.load();
+      audio.dataset.trackId = track.id;
+    }
+
+    try {
+      await audio.play();
+      setIsPlaying(true);
+    } catch {
+      setIsPlaying(false);
+    }
   };
 
-  if (!activeTrack) return null;
+  const togglePlay = async () => {
+    const audio = audioRef.current;
+    if (!audio || !activeTrack) return;
+
+    if (audio.dataset.trackId !== activeTrack.id) {
+      audio.src = activeTrack.audioUrl;
+      audio.load();
+      audio.dataset.trackId = activeTrack.id;
+      setProgress(0);
+    }
+
+    if (!audio.paused) {
+      audio.pause();
+      return;
+    }
+
+    try {
+      await audio.play();
+      setIsPlaying(true);
+    } catch {
+      setIsPlaying(false);
+    }
+  };
+
+  if (!activeTrack) {
+    return (
+      <div className="editorial-frame rounded-[32px] p-6">
+        <p className="text-sm uppercase tracking-[0.25em] text-paper/45">Preview Tracks</p>
+        <p className="mt-4 text-paper/70">등록된 트랙이 없습니다.</p>
+      </div>
+    );
+  }
 
   return (
     <div className="grid gap-6 lg:grid-cols-[1.05fr_0.95fr_0.9fr]">
@@ -115,8 +153,6 @@ export function AudioPlayer({ tracks }: { tracks: TrackItem[] }) {
               alt={activeTrack.title}
               width={900}
               height={900}
-              sizes="(min-width: 1024px) 220px, (min-width: 768px) 40vw, 80vw"
-              quality={70}
               className="aspect-square h-full w-full object-cover"
             />
           </div>
@@ -137,6 +173,7 @@ export function AudioPlayer({ tracks }: { tracks: TrackItem[] }) {
                   style={{ width: `${progress}%` }}
                 />
               </div>
+
               <div className="flex items-center justify-between text-xs uppercase tracking-[0.22em] text-paper/45">
                 <span>{isPlaying ? 'Playing' : 'Paused'}</span>
                 <span>{formatDuration(activeTrack.durationSeconds)}</span>
@@ -172,10 +209,7 @@ export function AudioPlayer({ tracks }: { tracks: TrackItem[] }) {
               <button
                 key={track.id}
                 type="button"
-                onClick={() => {
-                  setActiveTrackId(track.id);
-                  setShouldAutoplayOnTrackChange(true);
-                }}
+                onClick={() => void handleSelectTrack(track)}
                 className={cn(
                   'flex w-full items-center justify-between rounded-[22px] border border-transparent px-4 py-4 text-left transition',
                   active ? 'border-line bg-white/[0.06]' : 'hover:border-line hover:bg-white/[0.03]'
@@ -186,9 +220,12 @@ export function AudioPlayer({ tracks }: { tracks: TrackItem[] }) {
                   <span className="text-xs uppercase tracking-[0.22em] text-paper/35">
                     {String(index + 1).padStart(2, '0')}
                   </span>
+
                   <div>
                     <p className="text-base font-medium text-paper">{track.title}</p>
-                    <p className="text-xs uppercase tracking-[0.2em] text-paper/40">{track.artist}</p>
+                    <p className="text-xs uppercase tracking-[0.2em] text-paper/40">
+                      {track.artist}
+                    </p>
                   </div>
                 </div>
 
@@ -207,12 +244,22 @@ export function AudioPlayer({ tracks }: { tracks: TrackItem[] }) {
       <div className="editorial-frame rounded-[32px] p-4 md:p-6">
         <div className="mb-5 border-b border-line pb-4">
           <p className="text-sm uppercase tracking-[0.25em] text-paper/45">Lyrics</p>
-          <h4 className="mt-3 text-xl font-medium text-paper md:text-2xl">{activeTrack.title}</h4>
-          <p className="mt-1 text-xs uppercase tracking-[0.2em] text-paper/40">{activeTrack.artist}</p>
+          <h4
+            className="mt-3 text-xl font-medium text-paper md:text-2xl"
+            style={{ fontFamily: LYRICS_FONT_STACK }}
+          >
+            {activeTrack.title}
+          </h4>
+          <p className="mt-1 text-xs uppercase tracking-[0.2em] text-paper/40">
+            {activeTrack.artist}
+          </p>
         </div>
 
-        <div className="max-h-[460px] overflow-y-auto pr-2">
-          <div className="whitespace-pre-line text-sm leading-8 text-paper/78 md:text-base">
+        <div ref={lyricsContainerRef} className="max-h-[460px] overflow-y-auto pr-2">
+          <div
+            className="whitespace-pre-line text-[1.05rem] leading-[2.1] text-paper/82 md:text-[1.2rem] md:leading-[2.2]"
+            style={{ fontFamily: LYRICS_FONT_STACK }}
+          >
             {activeTrack.lyrics?.trim()
               ? activeTrack.lyrics
               : '아직 등록된 가사가 없습니다.\ntracks 데이터에 lyrics 필드를 추가해 주세요.'}
@@ -220,7 +267,7 @@ export function AudioPlayer({ tracks }: { tracks: TrackItem[] }) {
         </div>
       </div>
 
-      <audio ref={audioRef} preload="none" />
+      <audio ref={audioRef} preload="metadata" />
     </div>
   );
 }
