@@ -10,9 +10,25 @@ export function AudioPlayer({ tracks }: { tracks: TrackItem[] }) {
   const [activeTrackId, setActiveTrackId] = useState<string | null>(tracks[0]?.id ?? null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [progress, setProgress] = useState(0);
+  const [shouldAutoplayOnTrackChange, setShouldAutoplayOnTrackChange] = useState(false);
+
   const audioRef = useRef<HTMLAudioElement | null>(null);
+  const loadedTrackIdRef = useRef<string | null>(null);
 
   const activeTrack = tracks.find((track) => track.id === activeTrackId) ?? tracks[0];
+
+  const ensureAudioLoaded = () => {
+    const audio = audioRef.current;
+    if (!audio || !activeTrack) return null;
+
+    if (loadedTrackIdRef.current !== activeTrack.id) {
+      audio.src = activeTrack.audioUrl;
+      audio.load();
+      loadedTrackIdRef.current = activeTrack.id;
+    }
+
+    return audio;
+  };
 
   useEffect(() => {
     const audio = audioRef.current;
@@ -30,6 +46,7 @@ export function AudioPlayer({ tracks }: { tracks: TrackItem[] }) {
 
     audio.addEventListener('timeupdate', updateProgress);
     audio.addEventListener('ended', handleEnded);
+
     return () => {
       audio.removeEventListener('timeupdate', updateProgress);
       audio.removeEventListener('ended', handleEnded);
@@ -40,27 +57,53 @@ export function AudioPlayer({ tracks }: { tracks: TrackItem[] }) {
     const audio = audioRef.current;
     if (!audio || !activeTrack) return;
 
-    audio.src = activeTrack.audioUrl;
-    audio.load();
+    audio.pause();
+    setIsPlaying(false);
+    setProgress(0);
+    audio.currentTime = 0;
 
-    if (isPlaying) {
-      audio.play().catch(() => setIsPlaying(false));
+    if (loadedTrackIdRef.current !== activeTrack.id) {
+      audio.removeAttribute('src');
+      audio.load();
+      loadedTrackIdRef.current = null;
     }
-  }, [activeTrack, isPlaying]);
+
+    if (shouldAutoplayOnTrackChange) {
+      const nextAudio = ensureAudioLoaded();
+      if (!nextAudio) return;
+
+      nextAudio
+        .play()
+        .then(() => {
+          setIsPlaying(true);
+        })
+        .catch(() => {
+          setIsPlaying(false);
+        });
+
+      setShouldAutoplayOnTrackChange(false);
+    }
+  }, [activeTrackId, activeTrack, shouldAutoplayOnTrackChange]);
 
   const togglePlay = async () => {
-    const audio = audioRef.current;
+    const audio = ensureAudioLoaded();
     if (!audio) return;
 
-    if (isPlaying) {
-      audio.pause();
-      setIsPlaying(false);
+    if (audio.paused) {
+      try {
+        await audio.play();
+        setIsPlaying(true);
+      } catch {
+        setIsPlaying(false);
+      }
       return;
     }
 
-    await audio.play();
-    setIsPlaying(true);
+    audio.pause();
+    setIsPlaying(false);
   };
+
+  if (!activeTrack) return null;
 
   return (
     <div className="grid gap-6 lg:grid-cols-[1.05fr_0.95fr_0.9fr]">
@@ -72,6 +115,8 @@ export function AudioPlayer({ tracks }: { tracks: TrackItem[] }) {
               alt={activeTrack.title}
               width={900}
               height={900}
+              sizes="(min-width: 1024px) 220px, (min-width: 768px) 40vw, 80vw"
+              quality={70}
               className="aspect-square h-full w-full object-cover"
             />
           </div>
@@ -129,7 +174,7 @@ export function AudioPlayer({ tracks }: { tracks: TrackItem[] }) {
                 type="button"
                 onClick={() => {
                   setActiveTrackId(track.id);
-                  setIsPlaying(true);
+                  setShouldAutoplayOnTrackChange(true);
                 }}
                 className={cn(
                   'flex w-full items-center justify-between rounded-[22px] border border-transparent px-4 py-4 text-left transition',
@@ -175,7 +220,7 @@ export function AudioPlayer({ tracks }: { tracks: TrackItem[] }) {
         </div>
       </div>
 
-      <audio ref={audioRef} preload="metadata" />
+      <audio ref={audioRef} preload="none" />
     </div>
   );
 }

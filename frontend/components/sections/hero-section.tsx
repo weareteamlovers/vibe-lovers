@@ -12,9 +12,12 @@ export function HeroSection() {
       <div className="absolute inset-0">
         <Image
           src="/media/images/teen.jpg"
-          alt="Hero background"
+          alt="..."
           fill
           priority
+          placeholder="blur"
+          sizes="100vw"
+          quality={70}
           className="object-cover"
         />
         <div className="absolute inset-0 bg-black/35" />

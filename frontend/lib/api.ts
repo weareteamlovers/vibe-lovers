@@ -8,9 +8,29 @@ import {
 } from '@/lib/types';
 import { fallbackMedia, fallbackProjects, fallbackTracks } from '@/content/site';
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL ?? 'http://localhost:4000/api';
+const API_BASE_URL =
+  process.env.NEXT_PUBLIC_API_BASE_URL ?? 'http://localhost:4000/api';
 
-async function fetchJson<T>(path: string, init?: RequestInit): Promise<T> {
+async function fetchPublicJson<T>(path: string): Promise<T> {
+  const response = await fetch(`${API_BASE_URL}${path}`, {
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    next: { revalidate: 3600 }
+  });
+
+  if (!response.ok) {
+    const errorText = await response.text();
+    throw new Error(errorText || `Request failed: ${response.status}`);
+  }
+
+  return response.json() as Promise<T>;
+}
+
+async function fetchPrivateJson<T>(
+  path: string,
+  init?: RequestInit
+): Promise<T> {
   const response = await fetch(`${API_BASE_URL}${path}`, {
     ...init,
     credentials: 'include',
@@ -29,56 +49,69 @@ async function fetchJson<T>(path: string, init?: RequestInit): Promise<T> {
   return response.json() as Promise<T>;
 }
 
-export async function getProjects() {
+export async function getProjects(): Promise<ProjectItem[]> {
   try {
-    return await fetchJson<ProjectItem[]>('/projects');
+    return await fetchPublicJson<ProjectItem[]>('/projects');
   } catch {
     return fallbackProjects;
   }
 }
 
-export async function getMedia() {
+export async function getMedia(): Promise<MediaItem[]> {
   try {
-    return await fetchJson<MediaItem[]>('/media');
+    return await fetchPublicJson<MediaItem[]>('/media');
   } catch {
     return fallbackMedia;
   }
 }
 
-export async function getTracks() {
+export async function getTracks(): Promise<TrackItem[]> {
   try {
-    return await fetchJson<TrackItem[]>('/tracks');
+    return await fetchPublicJson<TrackItem[]>('/tracks');
   } catch {
     return fallbackTracks;
   }
 }
 
-export async function submitLetter(payload: LetterPayload) {
-  return fetchJson<{ success: boolean; message: string }>('/letters', {
+export async function submitLetter(
+  payload: LetterPayload
+): Promise<{ success: boolean; message: string }> {
+  return fetchPrivateJson<{ success: boolean; message: string }>('/letters', {
     method: 'POST',
     body: JSON.stringify(payload)
   });
 }
 
-export async function adminLogin(email: string, password: string) {
-  return fetchJson<{ success: boolean; admin: AdminSession }>('/admin/auth/login', {
-    method: 'POST',
-    body: JSON.stringify({ email, password })
-  });
+export async function adminLogin(
+  email: string,
+  password: string
+): Promise<{ success: boolean; admin: AdminSession }> {
+  return fetchPrivateJson<{ success: boolean; admin: AdminSession }>(
+    '/admin/auth/login',
+    {
+      method: 'POST',
+      body: JSON.stringify({ email, password })
+    }
+  );
 }
 
-export async function adminLogout() {
-  return fetchJson<{ success: boolean }>('/admin/auth/logout', {
+export async function adminLogout(): Promise<{ success: boolean }> {
+  return fetchPrivateJson<{ success: boolean }>('/admin/auth/logout', {
     method: 'POST'
   });
 }
 
-export async function getAdminMe() {
-  return fetchJson<AdminSession>('/admin/me');
+export async function getAdminMe(): Promise<AdminSession> {
+  return fetchPrivateJson<AdminSession>('/admin/me');
 }
 
-export async function getAdminLetters() {
-  return fetchJson<{
+export async function getAdminLetters(): Promise<{
+  items: AdminLetterItem[];
+  page: number;
+  pageSize: number;
+  total: number;
+}> {
+  return fetchPrivateJson<{
     items: AdminLetterItem[];
     page: number;
     pageSize: number;
@@ -86,18 +119,23 @@ export async function getAdminLetters() {
   }>('/admin/letters');
 }
 
-export async function getAdminLetter(id: string) {
-  return fetchJson<AdminLetterItem>(`/admin/letters/${id}`);
+export async function getAdminLetter(id: string): Promise<AdminLetterItem> {
+  return fetchPrivateJson<AdminLetterItem>(`/admin/letters/${id}`);
 }
 
-export async function markLetterRead(id: string) {
-  return fetchJson<{ success: boolean }>(`/admin/letters/${id}/read`, {
-    method: 'PATCH'
-  });
+export async function markLetterRead(
+  id: string
+): Promise<{ success: boolean }> {
+  return fetchPrivateJson<{ success: boolean }>(
+    `/admin/letters/${id}/read`,
+    {
+      method: 'PATCH'
+    }
+  );
 }
 
-export async function deleteLetter(id: string) {
-  return fetchJson<{ success: boolean }>(`/admin/letters/${id}`, {
+export async function deleteLetter(id: string): Promise<{ success: boolean }> {
+  return fetchPrivateJson<{ success: boolean }>(`/admin/letters/${id}`, {
     method: 'DELETE'
   });
 }

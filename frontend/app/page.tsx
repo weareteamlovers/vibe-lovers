@@ -22,3 +22,5 @@ export default async function HomePage() {
     </main>
   );
 }
+
+export const revalidate = 3600;

@@ -51,6 +51,8 @@ export function LetterSection() {
           src="/media/images/thing.jpg"
           alt="Exhibition background"
           fill
+          sizes="100vw"
+          quality={60}
           className="object-cover opacity-100"
         />
         <div className="absolute inset-0 bg-black/25" />
