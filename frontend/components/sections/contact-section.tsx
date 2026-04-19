@@ -12,7 +12,7 @@ export function ContactSection() {
       <SectionBackground
         src={contactBackground}
         overlayClassName="bg-black/25"
-        quality={95}
+        quality={100}
       />
 
       <AnimatedHeading

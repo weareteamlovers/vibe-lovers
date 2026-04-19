@@ -11,7 +11,7 @@ export function AlbumPreviewSection({ tracks }: { tracks: TrackItem[] }) {
       <SectionBackground
         src={albumBackground}
         overlayClassName="bg-black/25"
-        quality={95}
+        quality={100}
       />
 
       <AnimatedHeading

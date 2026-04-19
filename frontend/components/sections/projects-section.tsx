@@ -19,7 +19,7 @@ export function ProjectsSection({ items }: { items: ProjectItem[] }) {
         src={projectBackground}
         overlayClassName="bg-black/15"
         className="opacity-85"
-        quality={95}
+        quality={100}
       />
 
       <AnimatedHeading

@@ -52,7 +52,7 @@ export function LetterSection() {
       <SectionBackground
         src={letterBackground}
         overlayClassName="bg-black/25"
-        quality={95}
+        quality={100}
       />
 
       <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
