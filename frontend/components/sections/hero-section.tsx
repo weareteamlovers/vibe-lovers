@@ -6,7 +6,7 @@ import { motion, useReducedMotion } from 'framer-motion';
 import { siteIntro } from '@/content/site';
 
 const HERO_TITLE = '팀사랑꾼들';
-const HERO_TITLE_COLOR = '#475FD5';
+const HERO_TITLE_COLOR = '#FFF099';
 
 export function HeroSection() {
   const prefersReducedMotion = useReducedMotion();
@@ -34,8 +34,13 @@ export function HeroSection() {
           className="flex flex-col items-center text-center"
         >
           <h1
-            className="font-garet-black whitespace-nowrap text-[18vw] leading-[0.9] tracking-[-0.08em] md:text-[12vw] lg:text-[10.5vw]"
-            style={{ color: HERO_TITLE_COLOR }}
+            className="text-balance text-[18vw] leading-[0.9] tracking-[-0.08em] md:text-[12vw] lg:text-[10.5vw]"
+            style={{
+              color: HERO_TITLE_COLOR,
+              fontFamily:
+                '"SF Pro Text", "SF Pro Display", "Apple SD Gothic Neo", -apple-system, BlinkMacSystemFont, "Noto Sans KR", sans-serif',
+              fontWeight: 700,
+            }}
           >
             {HERO_TITLE}
           </h1>
