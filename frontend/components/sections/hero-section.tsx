@@ -5,7 +5,7 @@ import { motion, useReducedMotion } from 'framer-motion';
 
 import { siteIntro } from '@/content/site';
 
-const HERO_TITLE = 'teamlovers';
+const HERO_TITLE = '팀사랑꾼들';
 const HERO_TITLE_COLOR = '#475FD5';
 
 export function HeroSection() {
@@ -21,7 +21,7 @@ export function HeroSection() {
           priority
           className="object-cover"
         />
-        <div className="absolute inset-0 bg-black/35" />
+        <div className="absolute inset-0 bg-black/0" />
       </div>
 
       <div className="noise-overlay" />

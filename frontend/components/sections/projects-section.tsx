@@ -27,7 +27,7 @@ function ProjectsBackground() {
           priority
           className="object-cover"
         />
-        <div className="absolute inset-0 bg-black/20" />
+        <div className="absolute inset-0 bg-black/0" />
       </div>
     );
   }

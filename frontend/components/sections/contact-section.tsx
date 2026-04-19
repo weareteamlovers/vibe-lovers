@@ -11,7 +11,7 @@ export function ContactSection() {
     <SectionShell id="exhibition" className="relative overflow-hidden pt-10 md:pt-16">
       <SectionBackground
         src={contactBackground}
-        overlayClassName="bg-black/25"
+        overlayClassName="bg-black/0"
         quality={100}
       />
 
