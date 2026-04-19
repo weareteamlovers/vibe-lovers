@@ -12,7 +12,7 @@ export function HeroSection() {
     <section className="relative flex min-h-screen flex-col justify-between overflow-hidden px-5 pb-4 pt-10 md:px-8 lg:px-12">
       <SectionBackground
         src={heroBackground}
-        overlayClassName="bg-black/35"
+        overlayClassName="bg-black/0"
         priority
         quality={100}
       />
