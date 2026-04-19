@@ -59,12 +59,13 @@ async function main() {
   const mediaItems: SeedMediaItem[] = [
     {
       title: '',
-      type: MediaType.image,
-      src: '/media/images/team.jpg',
-      alt: 'Abstract poster placeholder',
+      type: MediaType.video,
+      src: '/media/videos/works.mp4',
+      poster: '/media/images/team.jpg',
+      alt: 'Featured video',
       caption: '',
-      width: 900,
-      height: 1200,
+      width: 1920,
+      height: 1080,
       order: 1
     },
     {
