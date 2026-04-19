@@ -13,7 +13,7 @@ export function ContactSection() {
         {/* Mobile background */}
         <div className="absolute inset-0 md:hidden">
           <Image
-            src="/media/images/album_mob"
+            src="/media/images/album_mob.jpg"
             alt="Contact background mobile"
             fill
             priority
@@ -26,7 +26,7 @@ export function ContactSection() {
         {/* Desktop background */}
         <div className="absolute inset-0 hidden md:block">
           <Image
-            src="/media/images/album_pc"
+            src="/media/images/album_pc.jpg"
             alt="Contact background desktop"
             fill
             priority

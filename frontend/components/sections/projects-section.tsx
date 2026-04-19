@@ -4,29 +4,53 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { ArrowUpRight, Star } from 'lucide-react';
 import { motion, useReducedMotion } from 'framer-motion';
+
 import { ProjectItem } from '@/lib/types';
 import { SectionShell } from '@/components/layout/section-shell';
 import { AnimatedHeading } from '@/components/ui/animated-heading';
 import { formatDate } from '@/lib/utils';
 
-// 나중에 사진 배경으로 되돌리고 싶으면 'image' 로만 바꾸면 됨.
-const PROJECTS_BACKGROUND_MODE: 'solid' | 'image' = 'image';
-const PROJECTS_BACKGROUND_COLOR = '#67161C';
-const PROJECTS_BACKGROUND_IMAGE_SRC = '/media/images/album.jpg';
+// 배경 모드
+// - 'photo': 모바일/PC 사진 다르게 사용
+// - 'solid': 단색 배경 사용
+const PROJECTS_BACKGROUND_MODE: 'solid' | 'photo' = 'photo';
+
+const PROJECTS_BACKGROUND_COLOR = '#FFFFCC';
+
+// photo 모드일 때 사용할 파일 경로
+const PROJECTS_BACKGROUND_MOBILE_SRC = '/media/images/album_mob.jpg';
+const PROJECTS_BACKGROUND_DESKTOP_SRC = '/media/images/album_pc.jpg';
 
 function ProjectsBackground() {
-  if (PROJECTS_BACKGROUND_MODE === 'image') {
+  if (PROJECTS_BACKGROUND_MODE === 'photo') {
     return (
       <div className="absolute inset-0 -z-10">
-        <Image
-          src={PROJECTS_BACKGROUND_IMAGE_SRC}
-          alt="Projects background"
-          fill
-          sizes="100vw"
-          quality={100}
-          priority
-          className="object-cover"
-        />
+        {/* Mobile background */}
+        <div className="absolute inset-0 md:hidden">
+          <Image
+            src={PROJECTS_BACKGROUND_MOBILE_SRC}
+            alt="Projects background mobile"
+            fill
+            sizes="100vw"
+            quality={100}
+            priority
+            className="object-cover object-center"
+          />
+        </div>
+
+        {/* Desktop background */}
+        <div className="absolute inset-0 hidden md:block">
+          <Image
+            src={PROJECTS_BACKGROUND_DESKTOP_SRC}
+            alt="Projects background desktop"
+            fill
+            sizes="100vw"
+            quality={100}
+            priority
+            className="object-cover object-center"
+          />
+        </div>
+
         <div className="absolute inset-0 bg-black/0" />
       </div>
     );
@@ -42,7 +66,7 @@ function ProjectsBackground() {
         className="absolute inset-0 opacity-70"
         style={{
           backgroundImage:
-            'radial-gradient(circle at 18% 18%, rgba(255,255,255,0.10), transparent 24%), radial-gradient(circle at 82% 4%, rgba(255,255,255,0.07), transparent 28%), radial-gradient(circle at 50% 100%, rgba(255,255,255,0.05), transparent 34%)'
+            'radial-gradient(circle at 18% 18%, rgba(255,255,255,0.10), transparent 24%), radial-gradient(circle at 82% 4%, rgba(255,255,255,0.07), transparent 28%), radial-gradient(circle at 50% 100%, rgba(255,255,255,0.05), transparent 34%)',
         }}
       />
     </div>
@@ -82,7 +106,7 @@ export function ProjectsSection({ items }: { items: ProjectItem[] }) {
                       opacity: 1,
                       y: 0,
                       filter: 'blur(0px)',
-                      transition: { duration: 0.8, delay: index * 0.08 }
+                      transition: { duration: 0.8, delay: index * 0.08 },
                     }
               }
               viewport={{ once: true, margin: '-10% 0px' }}
@@ -94,7 +118,10 @@ export function ProjectsSection({ items }: { items: ProjectItem[] }) {
 
               <div className="relative flex items-start justify-between gap-4">
                 <div>
-                  <p className="text-[11px] uppercase tracking-[0.3em] text-paper/40">Repository</p>
+                  <p className="text-[11px] uppercase tracking-[0.3em] text-paper/40">
+                    Repository
+                  </p>
+
                   <h3 className="mt-3 text-2xl font-semibold tracking-tight text-paper md:text-3xl">
                     {project.name}
                   </h3>
@@ -131,9 +158,11 @@ export function ProjectsSection({ items }: { items: ProjectItem[] }) {
 
               <div className="relative mt-8 flex flex-wrap items-center justify-between gap-4 border-t border-white/10 pt-5 text-xs uppercase tracking-[0.24em] text-paper/45">
                 <span>{project.language ?? 'Mixed stack'}</span>
+
                 <span className="inline-flex items-center gap-2">
                   <Star className="h-3.5 w-3.5" /> {project.stargazersCount}
                 </span>
+
                 <span>{formatDate(project.updatedAt)}</span>
               </div>
             </motion.article>
