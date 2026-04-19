@@ -1,27 +1,21 @@
 'use client';
 
-import Image from 'next/image';
 import { motion, useReducedMotion } from 'framer-motion';
 import { siteIntro } from '@/content/site';
+import { SectionBackground } from '@/components/ui/section-background';
+import heroBackground from '../../public/media/images/hero.avif';
 
 export function HeroSection() {
   const prefersReducedMotion = useReducedMotion();
 
   return (
     <section className="relative flex min-h-screen flex-col justify-between overflow-hidden px-5 pb-4 pt-10 md:px-8 lg:px-12">
-      <div className="absolute inset-0">
-        <Image
-          src="/media/images/home.jpg"
-          alt="..."
-          fill
-          priority
-          placeholder="blur"
-          sizes="100vw"
-          quality={70}
-          className="object-cover"
-        />
-        <div className="absolute inset-0 bg-black/35" />
-      </div>
+      <SectionBackground
+        src={heroBackground}
+        overlayClassName="bg-black/35"
+        priority
+        quality={100}
+      />
 
       <div className="noise-overlay" />
       <div className="relative mx-auto flex w-full max-w-[1500px] flex-1 flex-col justify-center">
@@ -33,7 +27,7 @@ export function HeroSection() {
         >
           <div className="flex flex-col gap-6">
             <span className="text-[10px] uppercase tracking-[0.45em] text-paper/40 md:text-xs">
-              싱어송라이터 • AI Engineer • 사랑꾼
+              AI Engineer • 싱어송라이터 • 사랑꾼
             </span>
             <h1 className="text-balance text-[18vw] font-semibold leading-[0.9] tracking-[-0.08em] text-paper md:text-[12vw] lg:text-[10.5vw]">
               {siteIntro.title}

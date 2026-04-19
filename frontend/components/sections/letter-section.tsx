@@ -1,12 +1,13 @@
 'use client';
 
 import { FormEvent, useState } from 'react';
-import Image from 'next/image';
 import { LoaderCircle, Send } from 'lucide-react';
 
 import { submitLetter } from '@/lib/api';
 import { SectionShell } from '@/components/layout/section-shell';
 import { AnimatedHeading } from '@/components/ui/animated-heading';
+import { SectionBackground } from '@/components/ui/section-background';
+import letterBackground from '../../public/media/images/thingcover.jpg';
 
 const initialState = {
   senderName: '',
@@ -48,15 +49,11 @@ export function LetterSection() {
 
   return (
     <SectionShell id="exhibition" className="relative overflow-hidden pt-10 md:pt-16">
-      <div className="absolute inset-0 -z-10">
-        <Image
-          src="/media/images/thingcover.jpg"
-          alt="Exhibition background"
-          fill
-          className="object-cover opacity-100"
-        />
-        <div className="absolute inset-0 bg-black/25" />
-      </div>
+      <SectionBackground
+        src={letterBackground}
+        overlayClassName="bg-black/25"
+        quality={95}
+      />
 
       <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
         <AnimatedHeading

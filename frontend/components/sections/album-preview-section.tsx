@@ -1,25 +1,19 @@
-import Image from 'next/image';
 import { SectionShell } from '@/components/layout/section-shell';
 import { AnimatedHeading } from '@/components/ui/animated-heading';
 import { TrackItem } from '@/lib/types';
 import { AudioPlayer } from '@/components/audio/audio-player';
+import { SectionBackground } from '@/components/ui/section-background';
+import albumBackground from '../../public/media/images/album.jpg';
 
 export function AlbumPreviewSection({ tracks }: { tracks: TrackItem[] }) {
   return (
     <SectionShell id="exhibition" className="relative overflow-hidden pt-10 md:pt-16">
-      <div className="absolute inset-0 -z-10">
-        <Image
-          src="/media/images/album.jpg"
-           alt=""
-           fill
-           sizes="100vw"
-           quality={60}
-           className="object-cover opacity-100"
-        />
-        <div className="absolute inset-0 bg-black/25" />
-      </div>
+      <SectionBackground
+        src={albumBackground}
+        overlayClassName="bg-black/25"
+        quality={95}
+      />
 
-      
       <AnimatedHeading
         eyebrow="Album Preview"
         title="팀사랑꾼들 정규 1집 demo"

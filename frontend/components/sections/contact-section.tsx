@@ -1,25 +1,20 @@
-import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowUpRight } from 'lucide-react';
 import { contactLinks } from '@/content/site';
 import { SectionShell } from '@/components/layout/section-shell';
 import { AnimatedHeading } from '@/components/ui/animated-heading';
+import { SectionBackground } from '@/components/ui/section-background';
+import contactBackground from '../../public/media/images/GREEN-min-min.avif';
 
 export function ContactSection() {
   return (
-    
     <SectionShell id="exhibition" className="relative overflow-hidden pt-10 md:pt-16">
-      <div className="absolute inset-0 -z-10">
-        <Image
-          src="/media/images/201.jpg"
-          alt="Exhibition background"
-          fill
-          sizes="100vw"
-          quality={60}
-          className="object-cover opacity-100"
-        />
-        <div className="absolute inset-0 bg-black/25" />
-      </div>
+      <SectionBackground
+        src={contactBackground}
+        overlayClassName="bg-black/25"
+        quality={95}
+      />
+
       <AnimatedHeading
         eyebrow="사랑꾼들의 연락처"
         title="나는 너랑 우리라는 단어만 쓸 수 있으면 충분하니 내 곁에 함께해줘"
