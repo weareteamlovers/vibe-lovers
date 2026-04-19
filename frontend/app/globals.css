@@ -2,21 +2,34 @@
 @tailwind components;
 @tailwind utilities;
 
-@font-face {
-  font-family: 'Garet Black';
-  src:
-    url('/fonts/Typo_CrayonM.ttf') format('truetype');
-  font-weight: 900;
-  font-style: normal;
-  font-display: swap;
-}
-
 :root {
   color-scheme: dark;
 }
 
 html {
   scroll-behavior: smooth;
+  font-family:
+    "SF Pro Text",
+    "SF Pro KR",
+    "SF Pro Display",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Apple SD Gothic Neo",
+    "Pretendard Variable",
+    Pretendard,
+    var(--font-geist-sans),
+    "Noto Sans KR",
+    "Malgun Gothic",
+    system-ui,
+    sans-serif;
+}
+
+body,
+button,
+input,
+textarea,
+select {
+  font-family: inherit;
 }
 
 body {
@@ -74,10 +87,5 @@ body {
 
   .hide-scrollbar::-webkit-scrollbar {
     display: none;
-  }
-
-  .font-garet-black {
-    font-family: 'Garet Black', var(--font-geist-sans), system-ui, sans-serif;
-    font-weight: 900;
   }
 }
