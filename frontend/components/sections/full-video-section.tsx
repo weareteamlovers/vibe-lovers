@@ -3,11 +3,12 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { MediaItem } from '@/lib/types';
 
-function getPrimaryVideo(items: MediaItem[]) {
-  return [...items]
-    .filter((item) => item.type === 'video' && item.src)
-    .sort((a, b) => a.order - b.order)[0] ?? null;
-}
+type ResolvedVideo = {
+  src: string;
+  poster?: string | null;
+  title?: string | null;
+  alt?: string | null;
+};
 
 function getVideoMimeType(src: string) {
   const normalized = src.toLowerCase().split('?')[0];
@@ -17,8 +18,32 @@ function getVideoMimeType(src: string) {
   return 'video/mp4';
 }
 
-export function FullVideoSection({ items }: { items: MediaItem[] }) {
-  const video = useMemo(() => getPrimaryVideo(items), [items]);
+function getPrimaryVideo(items: MediaItem[]): ResolvedVideo | null {
+  const video = [...items]
+    .filter((item) => item.type === 'video' && item.src)
+    .sort((a, b) => a.order - b.order)[0];
+
+  if (!video) return null;
+
+  return {
+    src: video.src,
+    poster: video.poster ?? null,
+    title: video.title ?? null,
+    alt: video.alt ?? null
+  };
+}
+
+export function FullVideoSection({ items = [] }: { items?: MediaItem[] }) {
+  const resolvedVideo = useMemo<ResolvedVideo>(() => {
+    return (
+      getPrimaryVideo(items) ?? {
+        src: '/media/videos/works.mp4',
+        poster: undefined,
+        title: 'Featured video',
+        alt: 'Featured video'
+      }
+    );
+  }, [items]);
 
   const sectionRef = useRef<HTMLElement | null>(null);
   const videoRef = useRef<HTMLVideoElement | null>(null);
@@ -52,54 +77,48 @@ export function FullVideoSection({ items }: { items: MediaItem[] }) {
 
   useEffect(() => {
     const node = videoRef.current;
-    if (!node) return;
-
-    if (shouldLoadSource) {
-      node.load();
-    }
-  }, [shouldLoadSource]);
+    if (!node || !shouldLoadSource) return;
+    node.load();
+  }, [shouldLoadSource, resolvedVideo.src]);
 
   useEffect(() => {
     const node = videoRef.current;
-    if (!node) return;
+    if (!node || !shouldLoadSource) return;
 
     if (shouldPlay) {
       const playPromise = node.play();
       if (playPromise) {
-        playPromise.catch(() => {
-          // autoplay policy 등으로 실패해도 UI 깨지지 않게 무시
-        });
+        playPromise.catch(() => {});
       }
-      return;
+    } else {
+      node.pause();
     }
-
-    node.pause();
-  }, [shouldPlay]);
-
-  if (!video) {
-    return null;
-  }
+  }, [shouldPlay, shouldLoadSource]);
 
   return (
     <section
       ref={sectionRef}
       id="exhibition"
-      aria-label={video.title || video.alt || 'Featured video'}
+      aria-label={resolvedVideo.title || resolvedVideo.alt || 'Featured video'}
       className="relative w-full overflow-hidden bg-black"
     >
       <div className="relative h-[100svh] min-h-[560px] w-full">
         <video
           ref={videoRef}
+          key={resolvedVideo.src}
           className="absolute inset-0 h-full w-full object-cover"
           muted
           loop
           playsInline
           preload="none"
-          poster={video.poster ?? undefined}
-          aria-label={video.title || video.alt || 'Featured video'}
+          poster={resolvedVideo.poster ?? undefined}
+          aria-label={resolvedVideo.title || resolvedVideo.alt || 'Featured video'}
         >
           {shouldLoadSource ? (
-            <source src={video.src} type={getVideoMimeType(video.src)} />
+            <source
+              src={resolvedVideo.src}
+              type={getVideoMimeType(resolvedVideo.src)}
+            />
           ) : null}
         </video>
       </div>

@@ -26,7 +26,6 @@ const config: Config = {
           '"Apple SD Gothic Neo"',
           '"Pretendard Variable"',
           'Pretendard',
-          'var(--font-geist-sans)',
           '"Noto Sans KR"',
           '"Malgun Gothic"',
           'system-ui',
