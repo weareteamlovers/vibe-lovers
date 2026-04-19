@@ -14,9 +14,9 @@ type LazyVideoProps = {
 };
 
 // 나중에 사진 배경으로 되돌리고 싶으면 'image' 로만 바꾸면 됨.
-const GALLERY_BACKGROUND_MODE: 'solid' | 'image' = 'solid';
-const GALLERY_BACKGROUND_COLOR = '#F9E5E8';
-const GALLERY_BACKGROUND_IMAGE_SRC = '/media/images/gallery.jpg';
+const GALLERY_BACKGROUND_MODE: 'solid' | 'image' = 'image';
+const GALLERY_BACKGROUND_COLOR = '#FFFFCC'
+const GALLERY_BACKGROUND_IMAGE_SRC = '/media/images/team.jpg';
 
 function GalleryBackground() {
   if (GALLERY_BACKGROUND_MODE === 'image') {

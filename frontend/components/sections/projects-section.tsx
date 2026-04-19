@@ -10,9 +10,9 @@ import { AnimatedHeading } from '@/components/ui/animated-heading';
 import { formatDate } from '@/lib/utils';
 
 // 나중에 사진 배경으로 되돌리고 싶으면 'image' 로만 바꾸면 됨.
-const PROJECTS_BACKGROUND_MODE: 'solid' | 'image' = 'solid';
+const PROJECTS_BACKGROUND_MODE: 'solid' | 'image' = 'image';
 const PROJECTS_BACKGROUND_COLOR = '#67161C';
-const PROJECTS_BACKGROUND_IMAGE_SRC = '/media/images/project.jpg';
+const PROJECTS_BACKGROUND_IMAGE_SRC = '/media/images/album.jpg';
 
 function ProjectsBackground() {
   if (PROJECTS_BACKGROUND_MODE === 'image') {
