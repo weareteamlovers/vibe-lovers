@@ -10,6 +10,96 @@ import { cn, formatDuration } from '@/lib/utils';
 const LYRICS_FONT_STACK =
   "'SF Pro Text', 'SF Pro Display', 'SF Pro KR', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Pretendard', 'Malgun Gothic', sans-serif";
 
+function AutoFitText({
+  text,
+  className,
+  mobileMinPx,
+  mobileMaxPx,
+  desktopMinPx,
+  desktopMaxPx
+}: {
+  text: string;
+  className?: string;
+  mobileMinPx: number;
+  mobileMaxPx: number;
+  desktopMinPx: number;
+  desktopMaxPx: number;
+}) {
+  const wrapperRef = useRef<HTMLDivElement | null>(null);
+  const textRef = useRef<HTMLSpanElement | null>(null);
+  const [fontSize, setFontSize] = useState(mobileMaxPx);
+
+  useEffect(() => {
+    const wrapper = wrapperRef.current;
+    const textEl = textRef.current;
+    if (!wrapper || !textEl) return;
+
+    let frame = 0;
+
+    const fitText = () => {
+      const isDesktop = window.matchMedia('(min-width: 768px)').matches;
+      const minPx = isDesktop ? desktopMinPx : mobileMinPx;
+      const maxPx = isDesktop ? desktopMaxPx : mobileMaxPx;
+
+      const containerWidth = wrapper.clientWidth;
+      if (!containerWidth) return;
+
+      let nextSize = maxPx;
+      textEl.style.fontSize = `${nextSize}px`;
+
+      while (nextSize > minPx && textEl.scrollWidth > containerWidth) {
+        nextSize -= 1;
+        textEl.style.fontSize = `${nextSize}px`;
+      }
+
+      setFontSize(nextSize);
+    };
+
+    const scheduleFit = () => {
+      cancelAnimationFrame(frame);
+      frame = window.requestAnimationFrame(fitText);
+    };
+
+    scheduleFit();
+
+    const resizeObserver = new ResizeObserver(() => {
+      scheduleFit();
+    });
+
+    resizeObserver.observe(wrapper);
+
+    if (document.fonts?.ready) {
+      document.fonts.ready.then(() => {
+        scheduleFit();
+      });
+    }
+
+    window.addEventListener('resize', scheduleFit);
+
+    return () => {
+      cancelAnimationFrame(frame);
+      resizeObserver.disconnect();
+      window.removeEventListener('resize', scheduleFit);
+    };
+  }, [text, mobileMinPx, mobileMaxPx, desktopMinPx, desktopMaxPx]);
+
+  return (
+    <div ref={wrapperRef} className="w-full min-w-0">
+      <span
+        ref={textRef}
+        className={cn('block w-full whitespace-nowrap', className)}
+        style={{
+          fontSize: `${fontSize}px`,
+          lineHeight: 1.05
+        }}
+        title={text}
+      >
+        {text}
+      </span>
+    </div>
+  );
+}
+
 export function AudioPlayer({ tracks }: { tracks: TrackItem[] }) {
   const [activeTrackId, setActiveTrackId] = useState<string | null>(tracks[0]?.id ?? null);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -157,12 +247,21 @@ export function AudioPlayer({ tracks }: { tracks: TrackItem[] }) {
             />
           </div>
 
-          <div className="space-y-6">
-            <div>
+          <div className="space-y-6 min-w-0">
+            <div className="min-w-0">
               <p className="text-xs uppercase tracking-[0.3em] text-paper/42">Now listening</p>
-              <h3 className="mt-3 text-3xl font-semibold tracking-tight text-paper md:text-5xl">
-                {activeTrack.title}
-              </h3>
+
+              <div className="mt-3 w-full min-w-0">
+                <AutoFitText
+                  text={activeTrack.title}
+                  className="font-semibold tracking-tight text-paper"
+                  mobileMinPx={22}
+                  mobileMaxPx={30}
+                  desktopMinPx={28}
+                  desktopMaxPx={48}
+                />
+              </div>
+
               <p className="mt-2 text-sm text-paper/58 md:text-base">{activeTrack.artist}</p>
             </div>
 
@@ -211,25 +310,32 @@ export function AudioPlayer({ tracks }: { tracks: TrackItem[] }) {
                 type="button"
                 onClick={() => void handleSelectTrack(track)}
                 className={cn(
-                  'flex w-full items-center justify-between rounded-[22px] border border-transparent px-4 py-4 text-left transition',
+                  'flex w-full items-center justify-between gap-4 rounded-[22px] border border-transparent px-4 py-4 text-left transition',
                   active ? 'border-line bg-white/[0.06]' : 'hover:border-line hover:bg-white/[0.03]'
                 )}
                 data-cursor="interactive"
               >
-                <div className="flex items-center gap-4">
-                  <span className="text-xs uppercase tracking-[0.22em] text-paper/35">
+                <div className="flex min-w-0 items-center gap-4">
+                  <span className="shrink-0 text-xs uppercase tracking-[0.22em] text-paper/35">
                     {String(index + 1).padStart(2, '0')}
                   </span>
 
-                  <div>
-                    <p className="text-base font-medium text-paper">{track.title}</p>
-                    <p className="text-xs uppercase tracking-[0.2em] text-paper/40">
+                  <div className="min-w-0">
+                    <AutoFitText
+                      text={track.title}
+                      className="font-medium text-paper"
+                      mobileMinPx={12}
+                      mobileMaxPx={16}
+                      desktopMinPx={12}
+                      desktopMaxPx={16}
+                    />
+                    <p className="mt-1 text-xs uppercase tracking-[0.2em] text-paper/40">
                       {track.artist}
                     </p>
                   </div>
                 </div>
 
-                <div className="flex items-center gap-4">
+                <div className="flex shrink-0 items-center gap-4">
                   {active ? <span className="h-2.5 w-2.5 animate-pulse rounded-full bg-paper" /> : null}
                   <span className="text-xs uppercase tracking-[0.2em] text-paper/45">
                     {formatDuration(track.durationSeconds)}
