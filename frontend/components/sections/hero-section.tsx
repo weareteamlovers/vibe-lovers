@@ -6,7 +6,7 @@ import { Bagel_Fat_One } from 'next/font/google';
 
 import { siteIntro } from '@/content/site';
 
-const HERO_TITLE = '팀사랑꾼들';
+const HERO_TITLE = '팀사랑꾼들.';
 const HERO_TITLE_COLOR = '#FFF099';
 const BANNER_TEXT_COLOR = '#fff4ea';
 const HERO_BANNER_REPEAT_COUNT = 6;

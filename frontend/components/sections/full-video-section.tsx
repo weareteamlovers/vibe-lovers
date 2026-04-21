@@ -5,9 +5,9 @@ import { MediaItem } from '@/lib/types';
 
 type ResolvedVideo = {
   src: string;
-  poster?: string | null;
-  title?: string | null;
-  alt?: string | null;
+  poster?: string;
+  title?: string;
+  alt?: string;
 };
 
 function getVideoMimeType(src: string) {
@@ -27,9 +27,9 @@ function getPrimaryVideo(items: MediaItem[]): ResolvedVideo | null {
 
   return {
     src: video.src,
-    poster: video.poster ?? null,
-    title: video.title ?? null,
-    alt: video.alt ?? null
+    poster: video.poster || undefined,
+    title: video.title || undefined,
+    alt: video.alt || undefined,
   };
 }
 
@@ -40,7 +40,7 @@ export function FullVideoSection({ items = [] }: { items?: MediaItem[] }) {
         src: '/media/videos/works.mp4',
         poster: undefined,
         title: 'Featured video',
-        alt: 'Featured video'
+        alt: 'Featured video',
       }
     );
   }, [items]);
@@ -66,7 +66,7 @@ export function FullVideoSection({ items = [] }: { items?: MediaItem[] }) {
       {
         root: null,
         rootMargin: '300px 0px',
-        threshold: [0, 0.35, 0.75]
+        threshold: [0, 0.35, 0.75],
       }
     );
 
@@ -102,16 +102,16 @@ export function FullVideoSection({ items = [] }: { items?: MediaItem[] }) {
       aria-label={resolvedVideo.title || resolvedVideo.alt || 'Featured video'}
       className="relative w-full overflow-hidden bg-black"
     >
-      <div className="relative h-[100svh] min-h-[560px] w-full">
+      <div className="relative w-full bg-black aspect-video md:aspect-auto md:h-[100svh] md:min-h-[560px]">
         <video
           ref={videoRef}
           key={resolvedVideo.src}
-          className="absolute inset-0 h-full w-full object-cover"
+          className="absolute inset-0 h-full w-full object-contain md:object-cover"
           muted
           loop
           playsInline
           preload="none"
-          poster={resolvedVideo.poster ?? undefined}
+          poster={resolvedVideo.poster}
           aria-label={resolvedVideo.title || resolvedVideo.alt || 'Featured video'}
         >
           {shouldLoadSource ? (
