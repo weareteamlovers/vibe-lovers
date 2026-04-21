@@ -68,13 +68,14 @@ export function HeroSection() {
 
       <div className="relative left-1/2 w-screen -translate-x-1/2 overflow-hidden">
         <div
-          className="absolute inset-x-0 top-0 h-[3px]"
+          className="absolute inset-x-0 top-0 h-[2px]"
           style={{ backgroundColor: BANNER_COLOR }}
         />
         <div
-          className="absolute inset-x-0 bottom-0 h-[3px]"
+          className="absolute inset-x-0 bottom-0 h-[2px]"
           style={{ backgroundColor: BANNER_COLOR }}
         />
+        <div className="absolute inset-0 bg-white/20 backdrop-blur-[1px]" />
 
         <div className="relative flex min-w-max animate-marquee whitespace-nowrap py-3 will-change-transform md:py-4">
           {[0, 1].map((group) => (
