@@ -16,12 +16,12 @@ export function SiteFooter() {
       </div>
 
       <div className="relative mx-auto max-w-7xl px-6 py-5">
-        <div className="flex items-center justify-between gap-4">
-          <p className="text-sm font-semibold tracking-[0.14em] text-paper md:text-base">
+        <div className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
+          <p className="text-sm font-semibold tracking-[0.14em] text-paper text-left md:flex-1 md:text-base">
             팀사랑꾼들닷컴 © 2026
           </p>
 
-          <p className="text-right text-xs text-paper/85 md:text-sm">
+          <p className="text-xs text-paper/85 text-left md:flex-1 md:text-right md:text-sm">
             팀사랑꾼들은 한국의 락 밴드이자 AI Engineering Group 입니다.
           </p>
         </div>
