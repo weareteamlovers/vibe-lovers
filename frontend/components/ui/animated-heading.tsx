@@ -14,13 +14,18 @@ interface AnimatedHeadingProps {
   align?: 'left' | 'center';
   className?: string;
   balanceTitle?: boolean;
-  titleMaxLines?: number;
+  useDefaultTitleSizing?: boolean;
+  titleClassName?: string;
+  descriptionClassName?: string;
 }
 
-const titleClassName =
-  'max-w-5xl whitespace-pre-line break-keep text-3xl font-semibold leading-[1.08] tracking-tight text-paper sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl';
+const titleBaseClassName =
+  'max-w-5xl break-keep whitespace-pre-line font-semibold tracking-tight text-paper';
 
-const descriptionClassName =
+const defaultTitleSizeClassName =
+  'text-3xl leading-[1.08] sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl';
+
+const defaultDescriptionClassName =
   'max-w-2xl break-keep text-sm leading-relaxed text-paper/65 md:text-base';
 
 const balancedWrapStyle: CSSProperties = {
@@ -33,14 +38,31 @@ export function AnimatedHeading({
   description,
   align = 'left',
   className,
-  balanceTitle = false
+  balanceTitle = false,
+  useDefaultTitleSizing = true,
+  titleClassName,
+  descriptionClassName
 }: AnimatedHeadingProps) {
   const prefersReducedMotion = useReducedMotion();
 
   const alignment =
     align === 'center' ? 'items-center text-center' : 'items-start text-left';
 
-  const titleStyle = balanceTitle ? balancedWrapStyle : undefined;
+  const hasManualBreaks = title.includes('\n');
+
+  const titleStyle =
+    balanceTitle && !hasManualBreaks ? balancedWrapStyle : undefined;
+
+  const resolvedTitleClassName = cn(
+    titleBaseClassName,
+    useDefaultTitleSizing && defaultTitleSizeClassName,
+    titleClassName
+  );
+
+  const resolvedDescriptionClassName = cn(
+    defaultDescriptionClassName,
+    descriptionClassName
+  );
 
   if (prefersReducedMotion) {
     return (
@@ -51,11 +73,13 @@ export function AnimatedHeading({
           </p>
         ) : null}
 
-        <h2 className={titleClassName} style={titleStyle}>
+        <h2 className={resolvedTitleClassName} style={titleStyle}>
           {title}
         </h2>
 
-        {description ? <p className={descriptionClassName}>{description}</p> : null}
+        {description ? (
+          <p className={resolvedDescriptionClassName}>{description}</p>
+        ) : null}
       </div>
     );
   }
@@ -77,12 +101,16 @@ export function AnimatedHeading({
         </motion.p>
       ) : null}
 
-      <motion.h2 className={titleClassName} style={titleStyle} variants={revealUp}>
+      <motion.h2
+        className={resolvedTitleClassName}
+        style={titleStyle}
+        variants={revealUp}
+      >
         {title}
       </motion.h2>
 
       {description ? (
-        <motion.p className={descriptionClassName} variants={revealUp}>
+        <motion.p className={resolvedDescriptionClassName} variants={revealUp}>
           {description}
         </motion.p>
       ) : null}
