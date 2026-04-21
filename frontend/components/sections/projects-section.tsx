@@ -25,7 +25,6 @@ function ProjectsBackground() {
   if (PROJECTS_BACKGROUND_MODE === 'photo') {
     return (
       <div className="absolute inset-0 -z-10">
-        {/* Mobile background */}
         <div className="absolute inset-0 md:hidden">
           <Image
             src={PROJECTS_BACKGROUND_MOBILE_SRC}
@@ -38,7 +37,6 @@ function ProjectsBackground() {
           />
         </div>
 
-        {/* Desktop background */}
         <div className="absolute inset-0 hidden md:block">
           <Image
             src={PROJECTS_BACKGROUND_DESKTOP_SRC}
@@ -66,7 +64,7 @@ function ProjectsBackground() {
         className="absolute inset-0 opacity-70"
         style={{
           backgroundImage:
-            'radial-gradient(circle at 18% 18%, rgba(255,255,255,0.10), transparent 24%), radial-gradient(circle at 82% 4%, rgba(255,255,255,0.07), transparent 28%), radial-gradient(circle at 50% 100%, rgba(255,255,255,0.05), transparent 34%)',
+            'radial-gradient(circle at 18% 18%, rgba(255,255,255,0.10), transparent 24%), radial-gradient(circle at 82% 4%, rgba(255,255,255,0.07), transparent 28%), radial-gradient(circle at 50% 100%, rgba(255,255,255,0.05), transparent 34%)'
         }}
       />
     </div>
@@ -77,13 +75,14 @@ export function ProjectsSection({ items }: { items: ProjectItem[] }) {
   const prefersReducedMotion = useReducedMotion();
 
   return (
-    <SectionShell id="exhibition" className="relative overflow-hidden pt-10 md:pt-16">
+    <SectionShell id="projects" className="relative overflow-hidden pt-10 md:pt-16">
       <ProjectsBackground />
 
       <AnimatedHeading
         eyebrow="사랑꾼들의 작업실"
         title="we are teamlovers !"
         description="팀사랑꾼들이 AI 엔지니어로서 작업중인 프로젝트들입니다."
+        singleLineTitle
       />
 
       <div className="mt-14 grid auto-rows-[minmax(220px,auto)] grid-cols-1 gap-5 md:grid-cols-6">
@@ -98,7 +97,11 @@ export function ProjectsSection({ items }: { items: ProjectItem[] }) {
           return (
             <motion.article
               key={project.id}
-              initial={prefersReducedMotion ? false : { opacity: 0, y: 34, filter: 'blur(10px)' }}
+              initial={
+                prefersReducedMotion
+                  ? false
+                  : { opacity: 0, y: 34, filter: 'blur(10px)' }
+              }
               whileInView={
                 prefersReducedMotion
                   ? undefined
@@ -106,7 +109,7 @@ export function ProjectsSection({ items }: { items: ProjectItem[] }) {
                       opacity: 1,
                       y: 0,
                       filter: 'blur(0px)',
-                      transition: { duration: 0.8, delay: index * 0.08 },
+                      transition: { duration: 0.8, delay: index * 0.08 }
                     }
               }
               viewport={{ once: true, margin: '-10% 0px' }}

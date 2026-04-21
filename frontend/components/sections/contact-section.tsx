@@ -1,15 +1,22 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowUpRight } from 'lucide-react';
+
 import { contactLinks } from '@/content/site';
 import { SectionShell } from '@/components/layout/section-shell';
 import { AnimatedHeading } from '@/components/ui/animated-heading';
 
+const CONTACT_TITLE_DESKTOP = `나는 너랑 우리라는 단어만 쓸 수
+있으면 충분하니 내 곁에 함께해줘`;
+
+const CONTACT_TITLE_MOBILE = `나는 너랑 우리라는
+단어만 쓸 수 있으면
+충분하니 내 곁에 함께해줘`;
+
 export function ContactSection() {
   return (
-    <SectionShell id="exhibition" className="relative overflow-hidden pt-10 md:pt-16">
+    <SectionShell id="contact" className="relative overflow-hidden pt-10 md:pt-16">
       <div className="absolute inset-0 -z-10">
-        {/* Mobile background */}
         <div className="absolute inset-0 md:hidden">
           <Image
             src="/media/images/album_mob.jpg"
@@ -22,7 +29,6 @@ export function ContactSection() {
           />
         </div>
 
-        {/* Desktop background */}
         <div className="absolute inset-0 hidden md:block">
           <Image
             src="/media/images/album_pc.jpg"
@@ -40,9 +46,10 @@ export function ContactSection() {
 
       <AnimatedHeading
         eyebrow="사랑꾼들의 연락처"
-        title="나는 너랑 우리라는 단어만 쓸 수 있으면 충분하니 내 곁에 함께해줘"
+        title={CONTACT_TITLE_DESKTOP}
+        mobileTitle={CONTACT_TITLE_MOBILE}
+        desktopTitle={CONTACT_TITLE_DESKTOP}
         description="팀사랑꾼들이 운영하는 채널들입니다."
-        className="[&_h2]:text-4xl [&_h2]:leading-[1.08] sm:[&_h2]:text-4xl md:[&_h2]:text-5xl lg:[&_h2]:text-6xl xl:[&_h2]:text-7xl"
       />
 
       <div className="mt-14 grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-5">

@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import { motion, useReducedMotion } from 'framer-motion';
+
 import { MediaItem } from '@/lib/types';
 import { SectionShell } from '@/components/layout/section-shell';
 import { AnimatedHeading } from '@/components/ui/animated-heading';
@@ -15,7 +16,7 @@ type LazyVideoProps = {
 
 // 나중에 사진 배경으로 되돌리고 싶으면 'image' 로만 바꾸면 됨.
 const GALLERY_BACKGROUND_MODE: 'solid' | 'image' = 'image';
-const GALLERY_BACKGROUND_COLOR = '#FFFFCC'
+const GALLERY_BACKGROUND_COLOR = '#FFFFCC';
 const GALLERY_BACKGROUND_IMAGE_SRC = '/media/images/team.jpg';
 
 function GalleryBackground() {
@@ -112,7 +113,10 @@ export function MediaGallerySection({ items }: { items: MediaItem[] }) {
       <GalleryBackground />
 
       <div className="[&_h2]:!text-[#24181d] [&_p]:!text-[#6b4d56]">
-        <AnimatedHeading eyebrow="" title="팀사랑꾼들이 사랑하는 앨범들" description="" />
+        <AnimatedHeading
+          title="팀사랑꾼들이 사랑하는 앨범들"
+          singleLineTitle
+        />
       </div>
 
       <div className="mt-14 columns-1 gap-5 md:columns-2 xl:columns-3 [&>*:not(:first-child)]:mt-5">

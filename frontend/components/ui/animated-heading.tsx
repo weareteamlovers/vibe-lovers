@@ -10,6 +10,8 @@ import { cn } from '@/lib/utils';
 interface AnimatedHeadingProps {
   eyebrow?: string;
   title: string;
+  mobileTitle?: string;
+  desktopTitle?: string;
   description?: string;
   align?: 'left' | 'center';
   className?: string;
@@ -17,10 +19,11 @@ interface AnimatedHeadingProps {
   useDefaultTitleSizing?: boolean;
   titleClassName?: string;
   descriptionClassName?: string;
+  singleLineTitle?: boolean;
 }
 
 const titleBaseClassName =
-  'max-w-5xl break-keep whitespace-pre-line font-semibold tracking-tight text-paper';
+  'max-w-5xl break-keep font-semibold tracking-tight text-paper';
 
 const defaultTitleSizeClassName =
   'text-3xl leading-[1.08] sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl';
@@ -32,29 +35,60 @@ const balancedWrapStyle: CSSProperties = {
   textWrap: 'balance'
 };
 
+function ResponsiveTitle({
+  title,
+  mobileTitle,
+  desktopTitle
+}: {
+  title: string;
+  mobileTitle?: string;
+  desktopTitle?: string;
+}) {
+  if (!mobileTitle && !desktopTitle) {
+    return <>{title}</>;
+  }
+
+  return (
+    <>
+      <span className="md:hidden">{mobileTitle ?? title}</span>
+      <span className="hidden md:inline">{desktopTitle ?? title}</span>
+    </>
+  );
+}
+
 export function AnimatedHeading({
   eyebrow,
   title,
+  mobileTitle,
+  desktopTitle,
   description,
   align = 'left',
   className,
   balanceTitle = false,
   useDefaultTitleSizing = true,
   titleClassName,
-  descriptionClassName
+  descriptionClassName,
+  singleLineTitle = false
 }: AnimatedHeadingProps) {
   const prefersReducedMotion = useReducedMotion();
 
   const alignment =
     align === 'center' ? 'items-center text-center' : 'items-start text-left';
 
-  const hasManualBreaks = title.includes('\n');
+  const effectiveMobileTitle = mobileTitle ?? title;
+  const effectiveDesktopTitle = desktopTitle ?? title;
+
+  const hasManualBreaks =
+    effectiveMobileTitle.includes('\n') || effectiveDesktopTitle.includes('\n');
 
   const titleStyle =
-    balanceTitle && !hasManualBreaks ? balancedWrapStyle : undefined;
+    balanceTitle && !hasManualBreaks && !singleLineTitle
+      ? balancedWrapStyle
+      : undefined;
 
   const resolvedTitleClassName = cn(
     titleBaseClassName,
+    singleLineTitle ? 'whitespace-nowrap' : 'whitespace-pre-line',
     useDefaultTitleSizing && defaultTitleSizeClassName,
     titleClassName
   );
@@ -74,7 +108,11 @@ export function AnimatedHeading({
         ) : null}
 
         <h2 className={resolvedTitleClassName} style={titleStyle}>
-          {title}
+          <ResponsiveTitle
+            title={title}
+            mobileTitle={mobileTitle}
+            desktopTitle={desktopTitle}
+          />
         </h2>
 
         {description ? (
@@ -106,7 +144,11 @@ export function AnimatedHeading({
         style={titleStyle}
         variants={revealUp}
       >
-        {title}
+        <ResponsiveTitle
+          title={title}
+          mobileTitle={mobileTitle}
+          desktopTitle={desktopTitle}
+        />
       </motion.h2>
 
       {description ? (
