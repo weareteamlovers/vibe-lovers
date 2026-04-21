@@ -1,6 +1,6 @@
 'use client';
 
-import type { CSSProperties } from 'react';
+import type { CSSProperties, ReactNode } from 'react';
 
 import { motion, useReducedMotion } from 'framer-motion';
 
@@ -35,6 +35,19 @@ const balancedWrapStyle: CSSProperties = {
   textWrap: 'balance'
 };
 
+function renderFixedLines(text: string): ReactNode {
+  const lines = text.split('\n');
+
+  return lines.map((line, index) => (
+    <span
+      key={`${line}-${index}`}
+      className="block whitespace-nowrap"
+    >
+      {line}
+    </span>
+  ));
+}
+
 function ResponsiveTitle({
   title,
   mobileTitle,
@@ -44,14 +57,25 @@ function ResponsiveTitle({
   mobileTitle?: string;
   desktopTitle?: string;
 }) {
+  const mobileText = mobileTitle ?? title;
+  const desktopText = desktopTitle ?? title;
+
+  const mobileHasManualBreaks = mobileText.includes('\n');
+  const desktopHasManualBreaks = desktopText.includes('\n');
+
   if (!mobileTitle && !desktopTitle) {
-    return <>{title}</>;
+    return mobileHasManualBreaks ? renderFixedLines(title) : <>{title}</>;
   }
 
   return (
     <>
-      <span className="md:hidden">{mobileTitle ?? title}</span>
-      <span className="hidden md:inline">{desktopTitle ?? title}</span>
+      <span className="block md:hidden">
+        {mobileHasManualBreaks ? renderFixedLines(mobileText) : mobileText}
+      </span>
+
+      <span className="hidden md:block">
+        {desktopHasManualBreaks ? renderFixedLines(desktopText) : desktopText}
+      </span>
     </>
   );
 }
@@ -88,7 +112,11 @@ export function AnimatedHeading({
 
   const resolvedTitleClassName = cn(
     titleBaseClassName,
-    singleLineTitle ? 'whitespace-nowrap' : 'whitespace-pre-line',
+    singleLineTitle
+      ? 'whitespace-nowrap'
+      : hasManualBreaks
+        ? 'whitespace-normal'
+        : 'whitespace-pre-line',
     useDefaultTitleSizing && defaultTitleSizeClassName,
     titleClassName
   );
