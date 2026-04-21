@@ -42,11 +42,11 @@ export function ContactSection() {
 
       <AnimatedHeading
         eyebrow="사랑꾼들의 연락처"
-        title={`나는 너랑 우리라는 단어만 쓸 수 있으면
-충분하니 내 곁에 함께해줘`}
+        title={`나는 너랑 우리라는 단어만 쓸 수
+있으면 충분하니 내 곁에 함께해줘`}
         description="팀사랑꾼들이 운영하는 채널들입니다."
         useDefaultTitleSizing={false}
-        titleClassName="max-w-none text-[1.25rem] leading-[0.96] tracking-[-0.045em] sm:text-[1.8rem] md:text-[2.4rem] lg:text-[3rem] xl:text-[3.8rem]"
+        titleClassName="max-w-none text-[1.25rem] leading-[0.99] tracking-[-0.045em] sm:text-[1.8rem] md:text-[2.4rem] lg:text-[3rem] xl:text-[3.8rem]"
       />
 
       <div className="mt-14 grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-5">
