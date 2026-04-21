@@ -1,6 +1,7 @@
 'use client';
 
 import type { CSSProperties } from 'react';
+
 import { motion, useReducedMotion } from 'framer-motion';
 
 import { staggerContainer, revealUp } from '@/lib/motion';
@@ -17,7 +18,7 @@ interface AnimatedHeadingProps {
 }
 
 const titleClassName =
-  'max-w-5xl break-keep text-3xl font-semibold leading-[1.08] tracking-tight text-paper sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl';
+  'max-w-5xl whitespace-pre-line break-keep text-3xl font-semibold leading-[1.08] tracking-tight text-paper sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl';
 
 const descriptionClassName =
   'max-w-2xl break-keep text-sm leading-relaxed text-paper/65 md:text-base';
@@ -35,7 +36,10 @@ export function AnimatedHeading({
   balanceTitle = false
 }: AnimatedHeadingProps) {
   const prefersReducedMotion = useReducedMotion();
-  const alignment = align === 'center' ? 'items-center text-center' : 'items-start text-left';
+
+  const alignment =
+    align === 'center' ? 'items-center text-center' : 'items-start text-left';
+
   const titleStyle = balanceTitle ? balancedWrapStyle : undefined;
 
   if (prefersReducedMotion) {

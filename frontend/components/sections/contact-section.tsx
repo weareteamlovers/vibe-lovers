@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
+
 import { ArrowUpRight } from 'lucide-react';
 
 import { contactLinks } from '@/content/site';
@@ -41,7 +42,7 @@ export function ContactSection() {
 
       <AnimatedHeading
         eyebrow="사랑꾼들의 연락처"
-        title="나는 너랑 우리라는 단어만 쓸 수 있으면 충분하니 내 곁에 함께해줘"
+        title={'나는 너랑 우리라는 단어만 쓸 수 있으면\n충분하니 내 곁에 함께해줘'}
         description="팀사랑꾼들이 운영하는 채널들입니다."
       />
 
@@ -59,6 +60,7 @@ export function ContactSection() {
               <p className="text-[11px] uppercase tracking-[0.32em] text-paper/38">
                 0{index + 1}
               </p>
+
               <h3 className="mt-4 text-2xl font-semibold tracking-tight text-paper">
                 {link.label}
               </h3>

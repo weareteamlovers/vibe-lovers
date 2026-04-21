@@ -1,12 +1,14 @@
 'use client';
 
 import { FormEvent, useState } from 'react';
+
 import { LoaderCircle, Send } from 'lucide-react';
 
 import { submitLetter } from '@/lib/api';
 import { SectionShell } from '@/components/layout/section-shell';
 import { AnimatedHeading } from '@/components/ui/animated-heading';
 import { SectionBackground } from '@/components/ui/section-background';
+
 import letterBackground from '../../public/media/images/thingcover.jpg';
 
 const initialState = {
@@ -25,6 +27,7 @@ export function LetterSection() {
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
     setSubmitting(true);
     setError(null);
     setSuccess(null);
@@ -41,7 +44,11 @@ export function LetterSection() {
       setSuccess(response.message);
       setForm(initialState);
     } catch (submitError) {
-      setError(submitError instanceof Error ? submitError.message : '편지를 전송하지 못했습니다.');
+      setError(
+        submitError instanceof Error
+          ? submitError.message
+          : '편지를 전송하지 못했습니다.'
+      );
     } finally {
       setSubmitting(false);
     }
@@ -58,16 +65,17 @@ export function LetterSection() {
       <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
         <AnimatedHeading
           eyebrow="사랑꾼들의 편지함"
-          title="이름 혹은 익명으로 팀사랑꾼들에게 편지를 남길 수 있습니다"
+          title={'이름 혹은 익명으로\n팀사랑꾼들에게 편지를\n남길 수 있어요'}
           description="여기에서는 작성만 가능하며, 편지 목록과 내용은 오직 영우만 읽을 수 있습니다."
-          balanceTitle
-          titleMaxLines={4}
         />
 
         <form onSubmit={handleSubmit} className="editorial-frame rounded-[32px] p-5 md:p-8">
           <div className="grid gap-5 md:grid-cols-2">
             <label className="space-y-2">
-              <span className="text-xs uppercase tracking-[0.24em] text-paper/45">보내는 이름</span>
+              <span className="text-xs uppercase tracking-[0.24em] text-paper/45">
+                보내는 이름
+              </span>
+
               <input
                 value={form.senderName}
                 onChange={(event) =>
@@ -79,7 +87,10 @@ export function LetterSection() {
             </label>
 
             <label className="space-y-2">
-              <span className="text-xs uppercase tracking-[0.24em] text-paper/45">제목</span>
+              <span className="text-xs uppercase tracking-[0.24em] text-paper/45">
+                제목
+              </span>
+
               <input
                 value={form.title}
                 onChange={(event) =>
@@ -92,11 +103,17 @@ export function LetterSection() {
           </div>
 
           <label className="mt-5 block space-y-2">
-            <span className="text-xs uppercase tracking-[0.24em] text-paper/45">본문</span>
+            <span className="text-xs uppercase tracking-[0.24em] text-paper/45">
+              본문
+            </span>
+
             <textarea
               value={form.body}
-              onChange={(event) => setForm((prev) => ({ ...prev, body: event.target.value }))}
+              onChange={(event) =>
+                setForm((prev) => ({ ...prev, body: event.target.value }))
+              }
               placeholder={`어떤 글이든 좋아요. 팀사랑꾼들은 글을 쓰고 건네는 데에 큰 용기가 필요하다는 걸 잘 알고 있어요.
+
 수수한 한마디가 군생활중인 영우에게 큰 힘이 됩니다.`}
               rows={8}
               required
@@ -109,7 +126,9 @@ export function LetterSection() {
             autoComplete="off"
             className="hidden"
             value={form.website}
-            onChange={(event) => setForm((prev) => ({ ...prev, website: event.target.value }))}
+            onChange={(event) =>
+              setForm((prev) => ({ ...prev, website: event.target.value }))
+            }
             aria-hidden="true"
           />
 
