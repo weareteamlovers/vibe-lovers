@@ -146,8 +146,8 @@ export function AudioPlayer({ tracks }: { tracks: TrackItem[] }) {
   return (
     <div className="grid gap-6 lg:grid-cols-[1.05fr_0.95fr_0.9fr]">
       <div className="editorial-frame rounded-[32px] p-4 md:p-6">
-        <div className="grid gap-5 md:grid-cols-[220px_1fr] md:items-center">
-          <div className="overflow-hidden rounded-[24px] border border-line bg-white/[0.03]">
+        <div className="grid gap-5">
+          <div className="mx-auto w-full max-w-[320px] overflow-hidden rounded-[24px] border border-line bg-white/[0.03]">
             <Image
               src={activeTrack.coverUrl ?? '/covers/cover-01.svg'}
               alt={activeTrack.title}
