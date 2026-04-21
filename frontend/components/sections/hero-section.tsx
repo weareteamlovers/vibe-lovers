@@ -8,7 +8,6 @@ import { siteIntro } from '@/content/site';
 
 const HERO_TITLE = '팀사랑꾼들';
 const HERO_TITLE_COLOR = '#FFF099';
-const BANNER_LINE_COLOR = '#ff6267';
 const BANNER_TEXT_COLOR = '#fff4ea';
 const HERO_BANNER_REPEAT_COUNT = 6;
 
@@ -39,13 +38,13 @@ function BannerSequence() {
         <div
           key={index}
           className="flex shrink-0 items-center gap-3 md:gap-4 lg:gap-5"
-          style={{ marginRight: '1.4rem' }}
+          style={{ marginRight: '1.6rem' }}
         >
           <span
-            className="banner-text text-[clamp(1.2rem,2.1vw,2.5rem)] leading-none tracking-[-0.03em] md:text-[clamp(1.25rem,1.8vw,2.2rem)]"
+            className="banner-text text-[clamp(1.32rem,2.31vw,2.75rem)] leading-none tracking-[-0.03em] md:text-[clamp(1.38rem,1.98vw,2.42rem)]"
             style={{
               color: BANNER_TEXT_COLOR,
-              wordSpacing: '0.34em',
+              wordSpacing: '0.4em',
             }}
           >
             {siteIntro.marquee}
@@ -61,7 +60,7 @@ export function HeroSection() {
   const prefersReducedMotion = useReducedMotion();
 
   return (
-    <section className="relative flex min-h-screen flex-col justify-between overflow-hidden px-5 pb-4 pt-10 md:px-8 lg:px-12">
+    <section className="relative flex min-h-screen flex-col justify-between overflow-hidden px-5 pb-0 pt-10 md:px-8 lg:px-12">
       <div className="absolute inset-0">
         <Image
           src="/media/images/hero.avif"
@@ -106,15 +105,6 @@ export function HeroSection() {
             className="object-cover"
           />
         </div>
-
-        <div
-          className="absolute inset-x-0 top-0 h-[3px]"
-          style={{ backgroundColor: BANNER_LINE_COLOR }}
-        />
-        <div
-          className="absolute inset-x-0 bottom-0 h-[3px]"
-          style={{ backgroundColor: BANNER_LINE_COLOR }}
-        />
 
         <div className="banner-marquee-shell relative overflow-hidden">
           <div
