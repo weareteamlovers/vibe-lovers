@@ -38,13 +38,32 @@ class EnvironmentVariables {
 
   @IsInt()
   GITHUB_CACHE_TTL_MINUTES!: number;
+
+  @IsOptional()
+  @IsString()
+  RESEND_API_KEY?: string;
+
+  @IsOptional()
+  @IsString()
+  LETTER_ALERT_ENABLED?: string;
+
+  @IsOptional()
+  @IsString()
+  LETTER_ALERT_FROM_EMAIL?: string;
+
+  @IsOptional()
+  @IsString()
+  LETTER_ALERT_TO_EMAIL?: string;
 }
 
 export function validate(config: Record<string, unknown>) {
   const validatedConfig = plainToInstance(EnvironmentVariables, config, {
     enableImplicitConversion: true
   });
-  const errors = validateSync(validatedConfig, { skipMissingProperties: false });
+
+  const errors = validateSync(validatedConfig, {
+    skipMissingProperties: false
+  });
 
   if (errors.length > 0) {
     throw new Error(errors.toString());
