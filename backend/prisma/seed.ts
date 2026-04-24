@@ -61,7 +61,7 @@ async function main() {
       title: '',
       type: MediaType.video,
       src: '/media/videos/works.mp4',
-      poster: '/media/images/team.jpg',
+      poster: '/media/images/GREEN-min-min.avif',
       alt: 'Featured video',
       caption: '',
       width: 1920,
