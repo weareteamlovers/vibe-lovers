@@ -64,7 +64,7 @@ function corsHeaders(req: Request) {
   return {
     'Access-Control-Allow-Origin': getAllowedOrigin(req),
     'Access-Control-Allow-Credentials': 'true',
-    'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
+    'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type, x-keep-alive-token',
     'Access-Control-Allow-Methods': 'GET, POST, PATCH, DELETE, OPTIONS',
     Vary: 'Origin',
   };
@@ -901,7 +901,29 @@ async function deleteAdminLetter(req: Request, id: string) {
   return json(req, { success: true });
 }
 
+function getKeepAliveRequestToken(req: Request) {
+  const authorization = req.headers.get('authorization') ?? '';
+
+  if (authorization.startsWith('Bearer ')) {
+    return authorization.slice('Bearer '.length).trim();
+  }
+
+  return req.headers.get('x-keep-alive-token')?.trim() ?? '';
+}
+
 async function keepAlive(req: Request) {
+  const expectedToken = Deno.env.get('KEEP_ALIVE_TOKEN');
+  const requestToken = getKeepAliveRequestToken(req);
+
+  if (!expectedToken) {
+    console.error('KEEP_ALIVE_TOKEN secret이 설정되어 있지 않습니다.');
+    return json(req, { ok: false, message: 'keep-alive is not configured' }, 500);
+  }
+
+  if (!requestToken || requestToken !== expectedToken) {
+    return json(req, { ok: false, message: 'Unauthorized' }, 401);
+  }
+
   const { count, error } = await supabase
     .from('Letter')
     .select('id', { count: 'exact', head: true });
