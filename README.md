@@ -21,7 +21,7 @@
 <br />
 <br />
 
-> **AI MUSIC DESIGN AND LOVE**
+ **AI MUSIC DESIGN AND LOVE**
 
 </div>
 
