@@ -10,3 +10,4 @@ frontend/.next
 backend/.nestjs-cli.json
 *.log
 .DS_Store
+supabase/.temp/
