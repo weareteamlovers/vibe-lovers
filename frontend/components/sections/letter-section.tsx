@@ -8,7 +8,6 @@ import { submitLetter } from '@/lib/api';
 import { SectionShell } from '@/components/layout/section-shell';
 import { AnimatedHeading } from '@/components/ui/animated-heading';
 import { SectionBackground } from '@/components/ui/section-background';
-
 import letterBackground from '../../public/media/images/thingcover.jpg';
 
 const LETTER_SECTION_TITLE = `이름 혹은 익명으로
@@ -29,6 +28,18 @@ export function LetterSection() {
   const [success, setSuccess] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
 
+  const senderNameInputClassName = form.isAnonymous
+    ? 'w-full cursor-not-allowed rounded-2xl border border-white/10 bg-black/35 px-4 py-3 text-sm text-paper/35 placeholder:text-paper/20 outline-none'
+    : 'w-full rounded-2xl border border-line bg-white/[0.03] px-4 py-3 text-sm text-paper placeholder:text-paper/25 focus:border-paper/35 focus:outline-none';
+
+  const handleAnonymousChange = (isAnonymous: boolean) => {
+    setForm((prev) => ({
+      ...prev,
+      isAnonymous,
+      senderName: isAnonymous ? '' : prev.senderName
+    }));
+  };
+
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
@@ -38,8 +49,8 @@ export function LetterSection() {
 
     try {
       const response = await submitLetter({
-        senderName: form.senderName || undefined,
-        title: form.title || undefined,
+        senderName: form.isAnonymous ? undefined : form.senderName.trim() || undefined,
+        title: form.title.trim() || undefined,
         body: form.body,
         isAnonymous: form.isAnonymous,
         website: form.website || undefined
@@ -75,20 +86,35 @@ export function LetterSection() {
 
         <form onSubmit={handleSubmit} className="editorial-frame rounded-[32px] p-5 md:p-8">
           <div className="grid gap-5 md:grid-cols-2">
-            <label className="space-y-2">
-              <span className="text-xs uppercase tracking-[0.24em] text-paper/45">
-                보내는 이름
-              </span>
+            <div className="space-y-3">
+              <label htmlFor="letter-sender-name" className="block space-y-2">
+                <span className="text-xs uppercase tracking-[0.24em] text-paper/45">
+                  보내는 이름
+                </span>
 
-              <input
-                value={form.senderName}
-                onChange={(event) =>
-                  setForm((prev) => ({ ...prev, senderName: event.target.value }))
-                }
-                placeholder="이름 또는 별칭"
-                className="w-full rounded-2xl border border-line bg-white/[0.03] px-4 py-3 text-sm text-paper placeholder:text-paper/25 focus:border-paper/35 focus:outline-none"
-              />
-            </label>
+                <input
+                  id="letter-sender-name"
+                  value={form.senderName}
+                  onChange={(event) =>
+                    setForm((prev) => ({ ...prev, senderName: event.target.value }))
+                  }
+                  placeholder={form.isAnonymous ? '익명으로 전송됩니다' : '이름 또는 별칭'}
+                  disabled={form.isAnonymous}
+                  aria-disabled={form.isAnonymous}
+                  className={senderNameInputClassName}
+                />
+              </label>
+
+              <label className="inline-flex items-center gap-3 text-sm text-paper/70">
+                <input
+                  type="checkbox"
+                  checked={form.isAnonymous}
+                  onChange={(event) => handleAnonymousChange(event.target.checked)}
+                  className="h-4 w-4 rounded border-line bg-transparent"
+                />
+                익명으로 보내기
+              </label>
+            </div>
 
             <label className="space-y-2">
               <span className="text-xs uppercase tracking-[0.24em] text-paper/45">
@@ -135,19 +161,7 @@ export function LetterSection() {
             aria-hidden="true"
           />
 
-          <div className="mt-5 flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
-            <label className="inline-flex items-center gap-3 text-sm text-paper/70">
-              <input
-                type="checkbox"
-                checked={form.isAnonymous}
-                onChange={(event) =>
-                  setForm((prev) => ({ ...prev, isAnonymous: event.target.checked }))
-                }
-                className="h-4 w-4 rounded border-line bg-transparent"
-              />
-              익명으로 보내기
-            </label>
-
+          <div className="mt-5 flex justify-end">
             <button
               type="submit"
               disabled={submitting}
