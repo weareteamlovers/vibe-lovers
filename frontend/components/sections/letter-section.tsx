@@ -82,6 +82,7 @@ export function LetterSection() {
           eyebrow="사랑꾼들의 편지함"
           title={LETTER_SECTION_TITLE}
           description="여기에서는 작성만 가능하며, 편지 목록과 내용은 오직 영우만 읽을 수 있습니다."
+          titleClassName="-ml-[0.08em]"
         />
 
         <form onSubmit={handleSubmit} className="editorial-frame rounded-[32px] p-5 md:p-8">

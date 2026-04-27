@@ -50,6 +50,7 @@ export function ContactSection() {
         mobileTitle={CONTACT_TITLE_MOBILE}
         desktopTitle={CONTACT_TITLE_DESKTOP}
         description="팀사랑꾼들이 운영하는 채널들입니다."
+        titleClassName="-ml-[0.08em]"
       />
 
       <div className="mt-14 grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-5">
