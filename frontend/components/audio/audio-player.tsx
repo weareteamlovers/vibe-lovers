@@ -235,7 +235,7 @@ export function AudioPlayer({ tracks }: { tracks: TrackItem[] }) {
 
   return (
     <div className="grid gap-6 lg:grid-cols-[1.05fr_0.95fr_0.9fr]">
-      <div className="editorial-frame rounded-[32px] p-4 md:p-6">
+      <div className="editorial-frame rounded-[32px] p-5 md:p-6">
         <div className="grid gap-5">
           <div className="mx-auto w-full max-w-[320px] overflow-hidden rounded-[24px] border border-line bg-white/[0.03]">
             <Image
@@ -292,7 +292,7 @@ export function AudioPlayer({ tracks }: { tracks: TrackItem[] }) {
         </div>
       </div>
 
-      <div className="editorial-frame rounded-[32px] p-4 md:p-6">
+      <div className="editorial-frame rounded-[32px] p-5 md:p-6">
         <div className="mb-5 flex items-center justify-between border-b border-line pb-4">
           <p className="text-sm uppercase tracking-[0.25em] text-paper/45">Preview Tracks</p>
           <span className="text-xs uppercase tracking-[0.25em] text-paper/35">
@@ -347,7 +347,7 @@ export function AudioPlayer({ tracks }: { tracks: TrackItem[] }) {
         </div>
       </div>
 
-      <div className="editorial-frame rounded-[32px] p-4 md:p-6">
+      <div className="editorial-frame rounded-[32px] p-5 md:p-6">
         <div className="mb-5 border-b border-line pb-4">
           <p className="text-sm uppercase tracking-[0.25em] text-paper/45">Lyrics</p>
           <h4

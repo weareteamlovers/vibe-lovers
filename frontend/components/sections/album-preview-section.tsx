@@ -17,6 +17,15 @@ const ALBUM_BACKGROUND_COLOR = '#67161C';
 const ALBUM_BACKGROUND_MOBILE = '/media/images/album-mobile.jpg';
 const ALBUM_BACKGROUND_DESKTOP = '/media/images/album-desktop.jpg';
 
+const ALBUM_DESCRIPTION = `팀사랑꾼들은 10곡 이상의 정규 1집을 목표로 하고 있습니다.
+
+2025년 겨울, 입대를 한 달 앞두고 음악을 시작했습니다. 음악을 전공한 사람이 아니다 보니 아직은 서툴고, 악기 소리도 투박한 데모입니다. 그럼에도 건반과 이어폰 마이크만으로 한 달 동안 즐겁게 작업했던 곡들을 이곳에 공유합니다.
+
+이어폰을 착용하고 들어주세요. 그리고 앞으로 한 곡 한 곡 쌓여갈 팀사랑꾼들의 첫 번째 앨범을 함께 응원해 주세요!
+
+아래로 내리면 가사가 있어요.
+〈우리집 사랑 노래〉는 노이즈가 크니 볼륨을 조금 낮추어 들어주세요.`;
+
 export function AlbumPreviewSection({ tracks }: { tracks: TrackItem[] }) {
   return (
     <SectionShell id="album-preview" className="relative overflow-hidden pt-10 md:pt-16">
@@ -60,16 +69,9 @@ export function AlbumPreviewSection({ tracks }: { tracks: TrackItem[] }) {
       <AnimatedHeading
         eyebrow="Album Preview"
         title="팀사랑꾼들 정규 1집 demo"
-        description="팀사랑꾼들은 10곡 이상의 정규 1집을 목표로 하고 있습니다.
-
-2025년 겨울, 입대를 한 달 앞두고 음악을 시작했습니다. 음악을 전공한 사람이 아니다 보니 아직은 서툴고, 악기 소리도 투박한 데모입니다. 그럼에도 건반과 이어폰 마이크만으로 한 달 동안 즐겁게 작업했던 곡들을 이곳에 공유합니다.
-
-이어폰을 착용하고 들어주세요. 그리고 앞으로 한 곡 한 곡 쌓여갈 팀사랑꾼들의 첫 번째 앨범을 함께 응원해주세요!
-
-아래로 내리면 가사가 있습니다.
-〈우리집 사랑 노래〉는 노이즈가 크니 볼륨을 조금 낮추어 들어주세요."
+        description={ALBUM_DESCRIPTION}
         singleLineTitle
-        descriptionClassName="max-w-4xl whitespace-normal break-words"
+        descriptionClassName="max-w-4xl whitespace-pre-line break-words"
       />
 
       <div className="mt-14">
