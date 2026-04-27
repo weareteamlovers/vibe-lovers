@@ -71,6 +71,7 @@ export function AlbumPreviewSection({ tracks }: { tracks: TrackItem[] }) {
         title="팀사랑꾼들 정규 1집 demo"
         description={ALBUM_DESCRIPTION}
         singleLineTitle
+        titleClassName="-ml-[0.08em]"
         descriptionClassName="max-w-4xl whitespace-pre-line break-words"
       />
 

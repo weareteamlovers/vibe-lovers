@@ -161,11 +161,11 @@ export function LetterSection() {
             aria-hidden="true"
           />
 
-          <div className="mt-5 flex justify-end">
+          <div className="mt-5">
             <button
               type="submit"
               disabled={submitting}
-              className="inline-flex items-center justify-center gap-3 rounded-full border border-line px-6 py-3 text-sm uppercase tracking-[0.28em] text-paper transition hover:bg-white/5 disabled:opacity-60"
+              className="inline-flex w-full items-center justify-center gap-3 rounded-full border border-line px-6 py-3 text-sm uppercase tracking-[0.28em] text-paper transition hover:bg-white/5 disabled:opacity-60"
               data-cursor="interactive"
             >
               {submitting ? (
