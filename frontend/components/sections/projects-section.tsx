@@ -60,6 +60,7 @@ function ProjectsBackground() {
         className="absolute inset-0"
         style={{ backgroundColor: PROJECTS_BACKGROUND_COLOR }}
       />
+
       <div
         className="absolute inset-0 opacity-70"
         style={{
@@ -141,7 +142,7 @@ export function ProjectsSection({ items }: { items: ProjectItem[] }) {
               </div>
 
               <div className="relative mt-8 space-y-5">
-                <p className="max-w-2xl text-sm leading-relaxed text-paper/68 md:text-base">
+                <p className="max-w-2xl text-sm leading-relaxed text-[#FFF099] md:text-base">
                   {project.description ?? '설명이 비어 있는 저장소입니다.'}
                 </p>
 
